@@ -24,7 +24,7 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                bool result = this.manager.Register(userData)
+                bool result = this.manager.Register(userData);
                 if(result == true)
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = "New User Add Successfull" });
