@@ -26,7 +26,5 @@ namespace FundooNotes.Managers.Manger
                 throw new Exception(ex.Message);
             }
         }
-       
-
     }
 }
