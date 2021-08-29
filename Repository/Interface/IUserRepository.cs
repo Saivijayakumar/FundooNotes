@@ -1,4 +1,5 @@
 ﻿using FundooNotes.Models;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace FundooNotes.Repository.Interface
     public interface IUserRepository
     {
         bool Register(RegisterModel userData);
+        bool Login(LoginModel userData);
     }
 }

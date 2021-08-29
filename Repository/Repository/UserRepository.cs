@@ -1,5 +1,6 @@
 ﻿using FundooNotes.Models;
 using FundooNotes.Repository.Interface;
+using Models;
 using Repository.Context;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,23 @@ namespace FundooNotes.Repository.Repository
             catch(ArgumentNullException ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+        public bool Login(LoginModel userData)
+        {
+            try
+            {
+                string encodedPassword = EncodePasswordToBase64(userData.password);
+                var loginResult = this.userContext.Users.Where(x => x.Email == userData.email && x.Password == encodedPassword).FirstOrDefault();
+                if (loginResult != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
             }
         }
 
