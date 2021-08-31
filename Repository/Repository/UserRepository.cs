@@ -1,6 +1,7 @@
 ﻿using Experimental.System.Messaging;
 using FundooNotes.Models;
 using FundooNotes.Repository.Interface;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using Repository.Context;
 using System;
@@ -127,6 +128,26 @@ namespace FundooNotes.Repository.Repository
             receivemsg.Formatter = new BinaryMessageFormatter();
             string linkToBeSend = receivemsg.Body.ToString();
             return linkToBeSend;
+        }
+        public bool ResetPassword(ResetPasswordModel resetPasswordData)
+        {
+            try
+            {
+                string encodedPassword = EncodePasswordToBase64(resetPasswordData.NewPassword);
+                var userPresent = this.userContext.Users.Where(x => x.Email == resetPasswordData.Email).FirstOrDefault();
+                if (userPresent != null && resetPasswordData.ConfirmNewPassword == resetPasswordData.NewPassword)
+                {
+                    userPresent.Password = encodedPassword;
+                    userContext.Entry(userPresent).State = EntityState.Modified;
+                    userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
         }
     }
 }
