@@ -1,9 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="20210828113319_Fundoo.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Repository.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
+    /// <summary>
+    /// Fundo class
+    /// </summary>
     public partial class Fundoo : Migration
     {
+        /// <summary>
+        /// Up class
+        /// </summary>
+        /// <param name="migrationBuilder">migrationBuilder values</param>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -23,6 +35,10 @@ namespace Repository.Migrations
                 });
         }
 
+        /// <summary>
+        /// Down method
+        /// </summary>
+        /// <param name="migrationBuilder">migrationBuilder values</param>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

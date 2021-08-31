@@ -21,7 +21,7 @@ namespace FundooNotes.Repository.Context
         }
 
         /// <summary>
-        /// Create a table called Users
+        /// Gets or sets a value indicating  the  values in table
         /// </summary>
         public DbSet<RegisterModel> Users { get; set; }
     }

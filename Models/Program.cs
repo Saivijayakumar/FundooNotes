@@ -1,14 +1,22 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="UserController.cs" company="Bridgelabz">
+// <copyright file="Program.cs" company="Bridgelabz">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace FundooNotes
 {
     using System;
-    class Program
+
+    /// <summary>
+    /// Program class
+    /// </summary>
+    public class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Main method
+        /// </summary>
+        /// <param name="args">command line args</param>
+        public static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
         }
