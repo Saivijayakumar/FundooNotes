@@ -1,11 +1,11 @@
-﻿using FundooNotes.Managers.Interface;
-using FundooNotes.Models;
+﻿//-----------------------------------------------------------------------
+// <copyright file="UserController.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+using FundooNotes.Managers.Interface;
 using FundooNotes.Repository.Interface;
-using Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FundooNotes.Managers.Manger
 {

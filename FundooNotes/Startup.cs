@@ -1,22 +1,21 @@
-using FundooNotes.Managers.Interface;
-using FundooNotes.Managers.Manger;
-using FundooNotes.Repository.Interface;
-using FundooNotes.Repository.Repository;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Repository.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+//-----------------------------------------------------------------------
+// <copyright file="UserController.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace FundooNotes
 {
+    using FundooNotes.Managers.Interface;
+    using FundooNotes.Managers.Manger;
+    using FundooNotes.Repository.Context;
+    using FundooNotes.Repository.Interface;
+    using FundooNotes.Repository.Repository;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     public class Startup
     {
         public IConfiguration Configuration { get; }

@@ -1,14 +1,13 @@
-﻿using System;
-using FundooNotes.Managers.Interface;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using FundooNotes.Models;
-using Models;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="UserController.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace FundooNotes.Controllers
 {
+    using System;
+    using FundooNotes.Managers.Interface;
+    using Microsoft.AspNetCore.Mvc;
     public class UserController : ControllerBase
     {
         private readonly IUserManger manager;

@@ -1,10 +1,8 @@
-﻿using FundooNotes.Models;
-using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="UserController.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace FundooNotes.Managers.Interface
 {
      public interface IUserManger

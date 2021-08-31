@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Models
+﻿//-----------------------------------------------------------------------
+// <copyright file="UserController.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace FundooNotes
 {
     public class ResponseModel<T>
     {

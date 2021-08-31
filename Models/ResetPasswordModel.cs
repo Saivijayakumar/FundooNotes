@@ -1,4 +1,9 @@
-﻿namespace Models
+﻿//-----------------------------------------------------------------------
+// <copyright file="UserController.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace FundooNotes
 {
     using System.ComponentModel.DataAnnotations;
     public class ResetPasswordModel

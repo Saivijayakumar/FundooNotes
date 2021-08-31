@@ -1,17 +1,28 @@
-﻿using FundooNotes.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Repository.Context
+﻿//-----------------------------------------------------------------------
+// <copyright file="UserContext.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace FundooNotes.Repository.Context
 {
+    using Microsoft.EntityFrameworkCore;
+
+    /// <summary>
+    /// UserContext class
+    /// </summary>
     public class UserContext : DbContext
     {
-        public UserContext(DbContextOptions<UserContext> options):base(options)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserContext" /> class
+        /// </summary>
+        /// <param name="options">sending Object</param>
+        public UserContext(DbContextOptions<UserContext> options) : base(options)
         {
-
         }
+
+        /// <summary>
+        /// Create a table called Users
+        /// </summary>
         public DbSet<RegisterModel> Users { get; set; }
     }
 }

@@ -1,17 +1,41 @@
-﻿using FundooNotes.Models;
-using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="IUserRepository.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace FundooNotes.Repository.Interface
 {
+    /// <summary>
+    /// Instance class
+    /// </summary>
     public interface IUserRepository
     {
+        /// <summary>
+        /// Register method 
+        /// </summary>
+        /// <param name="userData">It contain all data of user</param>
+        /// <returns>true or false</returns>
         bool Register(RegisterModel userData);
+
+        /// <summary>
+        /// Login method 
+        /// </summary>
+        /// <param name="userData">It contain email and password</param>
+        /// <returns>true or false</returns>
         bool Login(LoginModel userData);
+
+        /// <summary>
+        /// we will send mail to 
+        /// </summary>
+        /// <param name="email">email only</param>
+        /// <returns>true or false</returns>
         bool ForgotPassword(string email);
+
+        /// <summary>
+        /// Reset the password
+        /// </summary>
+        /// <param name="resetPasswordData">email,new password and ConfirmNewPassword</param>
+        /// <returns>true or false</returns>
         bool ResetPassword(ResetPasswordModel resetPasswordData);
     }
 }

@@ -1,10 +1,22 @@
-﻿using System;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace Repository
 {
-    class Program
+    using System;
+
+    /// <summary>
+    /// Main program for Repository
+    /// </summary>
+    public class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Main method
+        /// </summary>
+        /// <param name="args">command line args</param>
+        public static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
         }
