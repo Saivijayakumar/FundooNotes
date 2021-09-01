@@ -8,6 +8,7 @@ namespace FundooNotes.Controllers
     using System;
     using FundooNotes.Managers.Interface;
     using Microsoft.AspNetCore.Mvc;
+
     public class UserController : ControllerBase
     {
         private readonly IUserManger manager;
@@ -49,7 +50,7 @@ namespace FundooNotes.Controllers
                 if (result == true)
                 {
                     string tokenString = this.manager.GenerateToken(userData.Email);
-                    return this.Ok(new  { Status = true, Message ="Login Successfull for :"+userData.Email,newtoken = tokenString });
+                    return this.Ok(new  { Status = true, Message ="Login Successfull for :"+userData.Email,newtoken = tokenString});
                 }
                 else
                 {

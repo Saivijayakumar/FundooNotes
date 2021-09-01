@@ -10,6 +10,8 @@ namespace FundooNotes
     using FundooNotes.Repository.Context;
     using FundooNotes.Repository.Interface;
     using FundooNotes.Repository.Repository;
+    using Manger.Interface;
+    using Manger.Manger;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -32,6 +34,9 @@ namespace FundooNotes
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserManger, UserManager>();
+
+            services.AddTransient<INoteRepository, NoteRepository>();
+            services.AddTransient<INoteManger, NoteManger>();
 
         }
 

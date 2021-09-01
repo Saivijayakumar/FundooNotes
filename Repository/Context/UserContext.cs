@@ -24,5 +24,6 @@ namespace FundooNotes.Repository.Context
         /// Gets or sets a value indicating  the  values in table
         /// </summary>
         public DbSet<RegisterModel> Users { get; set; }
+        public DbSet<NoteModel> Note { get; set; }
     }
 }
