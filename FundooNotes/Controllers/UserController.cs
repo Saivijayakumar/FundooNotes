@@ -8,6 +8,7 @@ namespace FundooNotes.Controllers
     using System;
     using FundooNotes.Managers.Interface;
     using Microsoft.AspNetCore.Mvc;
+
     public class UserController : ControllerBase
     {
         private readonly IUserManger manager;
