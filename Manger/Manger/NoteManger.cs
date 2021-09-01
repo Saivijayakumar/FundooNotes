@@ -38,5 +38,40 @@ namespace FundooNotes.Manger.Manger
                 throw new Exception(ex.Message);
             }
         }
+
+        public bool ChangeDescription(int userId, int noteId)
+        {
+            try
+            {
+                return this.repository.ChangeDescription(userId, noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public bool UnPin(int userId, int noteId)
+        {
+            try
+            {
+                return this.repository.UnPin(userId, noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool Pin(int userId, int noteId)
+        {
+            try
+            {
+                return this.repository.Pin(userId, noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

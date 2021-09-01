@@ -61,5 +61,62 @@ namespace FundooNotes.Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public bool ChangeDescription(int userId, int noteId)
+        {
+            try
+            {
+                var noteData = this.userContext.Note.Where(d => d.UserId == userId && d.NoteId == noteId).FirstOrDefault();
+                if (noteData != null)
+                {
+                    noteData.Description = "Now Body is changed here";
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool UnPin(int userId, int noteId)
+        {
+            try
+            {
+                var noteData = this.userContext.Note.Where(d => d.UserId == userId && d.NoteId == noteId).FirstOrDefault();
+                if (noteData != null)
+                {
+                    noteData.Pin = false;
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool Pin(int userId, int noteId)
+        {
+            try
+            {
+                var noteData = this.userContext.Note.Where(d => d.UserId == userId && d.NoteId == noteId).FirstOrDefault();
+                if (noteData != null)
+                {
+                    noteData.Pin = true;
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
