@@ -71,7 +71,7 @@ namespace FundooNotes.Repository.Repository
         /// </summary>
         public static void SendMessageToMAMQ()
         {
-            var url = "If you want to Rest your credentials for Fundoonotes App Please Click on the link  https://localhost:44338/api/ResetPassword";
+            var url = "If you want to Rest your credentials for Fundoonotes App Please Click on the link";
             MessageQueue messageQueue = new MessageQueue();
             if (MessageQueue.Exists(@".\Private$\MyQueue"))
             {
@@ -85,10 +85,32 @@ namespace FundooNotes.Repository.Repository
             Message message = new Message();
             message.Formatter = new BinaryMessageFormatter();
             message.Body = url;
-            messageQueue.Label = "First url link";
             messageQueue.Send(message);
         }
 
+        public static void SendMail(string email)
+        {
+            try
+            {
+                var msgBody = ReceiveMessageFromMAMQ();
+                MailMessage mailMessage = new MailMessage("FromEmail", email);
+                mailMessage.Subject = "Link For reset Password";
+                mailMessage.Body = msgBody;
+                mailMessage.IsBodyHtml = true;
+                SmtpClient smtpClient = new SmtpClient();
+                smtpClient.Port = 587;
+                smtpClient.Host = "smtp.gmail.com";
+                smtpClient.EnableSsl = true;
+                smtpClient.UseDefaultCredentials = false;
+                //smtpClient.Credentials = new NetworkCredential("FromEmail", "FromEmailPassword");
+                smtpClient.Credentials = new NetworkCredential("bollusaivijaykumar212@gmail.com", "bollusaivijay");
+                smtpClient.Send(mailMessage);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         /// <summary>
         /// Register method 
         /// </summary>
@@ -151,24 +173,14 @@ namespace FundooNotes.Repository.Repository
                 if (userCheck != null)
                 {
                     SendMessageToMAMQ();
-                    var msgBody = ReceiveMessageFromMAMQ();
-                    MailMessage mailMessage = new MailMessage("FromEmail", email);
-                    mailMessage.Subject = "Link For reset Password";
-                    mailMessage.Body = msgBody;
-                    mailMessage.IsBodyHtml = true;
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.EnableSsl = true;
-                    smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential("FromEmail", "FromEmailPassword");
-                    smtp.Port = 587;
-                    smtp.Send(mailMessage);
+                    SendMail(email);
                     return true;
                 }
                 else
                 {
                     return false;
-                }   
+                }
+
             }
             catch (Exception ex)
             {

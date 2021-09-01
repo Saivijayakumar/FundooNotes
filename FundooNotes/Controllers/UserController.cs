@@ -39,7 +39,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/Login")]
         public IActionResult Login([FromBody] LoginModel userData)
         {
@@ -60,7 +60,7 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
-        [HttpGet]
+        [HttpPost]
         [Route("api/ForgotPassword")]
         public IActionResult ForgotPassword(string email)
         {

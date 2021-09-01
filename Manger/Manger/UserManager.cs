@@ -3,12 +3,12 @@
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
-using FundooNotes.Managers.Interface;
-using FundooNotes.Repository.Interface;
-using System;
-
 namespace FundooNotes.Managers.Manger
 {
+    using FundooNotes.Managers.Interface;
+    using FundooNotes.Repository.Interface;
+    using System;
+
     public class UserManager : IUserManger
     {
         private readonly IUserRepository repository;
