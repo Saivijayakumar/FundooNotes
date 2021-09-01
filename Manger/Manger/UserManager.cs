@@ -38,6 +38,17 @@ namespace FundooNotes.Managers.Manger
                 throw new Exception(ex.Message);
             }
         }
+        public string GenerateToken(string Email)
+        {
+            try
+            {
+                return this.repository.GenerateToken(Email);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public bool ForgotPassword(string email)
         {
             try

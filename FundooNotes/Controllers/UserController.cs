@@ -26,11 +26,11 @@ namespace FundooNotes.Controllers
                 bool result = this.manager.Register(userData);
                 if(result == true)
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "New User Add Successfull" });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "New User Add Successfull"});
                 }
                 else
                 {
-                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "User Adding Unsuccessfull" });
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "User Adding Unsuccessfull.The email is exist already" });
                 }
             }
             catch(Exception ex)
@@ -48,7 +48,8 @@ namespace FundooNotes.Controllers
                 bool result = this.manager.Login(userData);
                 if (result == true)
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Login Successfull" });
+                    string tokenString = this.manager.GenerateToken(userData.Email);
+                    return this.Ok(new  { Status = true, Message ="Login Successfull for :"+userData.Email,newtoken = tokenString });
                 }
                 else
                 {

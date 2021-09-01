@@ -23,6 +23,7 @@ namespace FundooNotes.Repository.Interface
         /// <param name="userData">It contain email and password</param>
         /// <returns>true or false</returns>
         bool Login(LoginModel userData);
+        string GenerateToken(string Email);
 
         /// <summary>
         /// we will send mail to 

@@ -6,13 +6,17 @@
 namespace FundooNotes.Repository.Repository
 {
     using System;
+    using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Net;
     using System.Net.Mail;
+    using System.Security.Claims;
     using Experimental.System.Messaging;
     using FundooNotes.Repository.Context;
     using FundooNotes.Repository.Interface;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
     /// UserRepository class 
@@ -25,12 +29,19 @@ namespace FundooNotes.Repository.Repository
         private readonly UserContext userContext;
 
         /// <summary>
+        /// this object is used to access the data of SecretKey from app settings
+        /// </summary>
+        private readonly IConfiguration configuration;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="UserRepository" /> class
         /// </summary>
-        /// <param name="userContext">sending Object</param>
-        public UserRepository(UserContext userContext)
+        /// <param name="userContext">Database object</param>
+        /// <param name="configuration">AppSetting object</param>
+        public UserRepository(UserContext userContext, IConfiguration configuration)
         {
             this.userContext = userContext;
+            this.configuration = configuration;
         }
 
         /// <summary>
@@ -87,7 +98,11 @@ namespace FundooNotes.Repository.Repository
             message.Body = url;
             messageQueue.Send(message);
         }
-
+        
+        /// <summary>
+        /// In method we receive data form queue and send mail 
+        /// </summary>
+        /// <param name="email">To mail</param>
         public static void SendMail(string email)
         {
             try
@@ -102,8 +117,7 @@ namespace FundooNotes.Repository.Repository
                 smtpClient.Host = "smtp.gmail.com";
                 smtpClient.EnableSsl = true;
                 smtpClient.UseDefaultCredentials = false;
-                //smtpClient.Credentials = new NetworkCredential("FromEmail", "FromEmailPassword");
-                smtpClient.Credentials = new NetworkCredential("bollusaivijaykumar212@gmail.com", "bollusaivijay");
+                smtpClient.Credentials = new NetworkCredential("FromEmail", "FromEmailPassword");
                 smtpClient.Send(mailMessage);
             }
             catch (Exception ex)
@@ -111,6 +125,7 @@ namespace FundooNotes.Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
         /// <summary>
         /// Register method 
         /// </summary>
@@ -120,7 +135,8 @@ namespace FundooNotes.Repository.Repository
         {
             try
             {
-                if (userData != null)
+                bool personPresent = this.userContext.Users.Any(x => x.Email == userData.Email);
+                if (userData != null && personPresent == false)
                 {
                     userData.Password = EncodePasswordToBase64(userData.Password);
                     this.userContext.Users.Add(userData);
@@ -180,7 +196,6 @@ namespace FundooNotes.Repository.Repository
                 {
                     return false;
                 }
-
             }
             catch (Exception ex)
             {
@@ -213,6 +228,29 @@ namespace FundooNotes.Repository.Repository
             {
                 throw new ArgumentNullException(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// In this method we are having Header and payload part just getting SecretKey from outside.
+        /// </summary>
+        /// <param name="email">one of payload data</param>
+        /// <returns>Token string</returns>
+        public string GenerateToken(string email)
+        {
+            byte[] key = Convert.FromBase64String(this.configuration["SecretKey"]);
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
+            SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] 
+            {
+                new Claim(ClaimTypes.Name, email)
+            }),
+                Expires = DateTime.UtcNow.AddMinutes(30),
+                SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature)
+            };
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            JwtSecurityToken token = handler.CreateJwtSecurityToken(descriptor);
+            return handler.WriteToken(token);
         }
     }
 }
