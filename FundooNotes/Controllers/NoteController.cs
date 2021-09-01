@@ -63,11 +63,11 @@ namespace FundooNotes.Controllers
         /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/ChangeTitle")]
-        public IActionResult ChangeTitle(int userId, int noteId)
+        public IActionResult ChangeTitle(int userId, int noteId, string updatedData)
         {
             try
             {
-                bool result = this.noteManger.ChangeTitle(userId, noteId);
+                bool result = this.noteManger.ChangeTitle(userId, noteId, updatedData);
                 if (result == true)
                 {
                     return this.Ok(new { Status = true, Result = "Title changed Successfull For note ID " + noteId });
@@ -91,11 +91,11 @@ namespace FundooNotes.Controllers
         /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/ChangeDescription")]
-        public IActionResult ChangeDescription(int userId, int noteId)
+        public IActionResult ChangeDescription(int userId, int noteId, string updatedData)
         {
             try
             {
-                bool result = this.noteManger.ChangeDescription(userId, noteId);
+                bool result = this.noteManger.ChangeDescription(userId, noteId, updatedData);
                 if (result == true)
                 {
                     return this.Ok(new { Status = true, Result = "Description changed Successfull For note ID " + noteId });
@@ -159,6 +159,63 @@ namespace FundooNotes.Controllers
                 else
                 {
                     return this.BadRequest(new { Status = false, Result = "Pin Unsuccessfull For note ID " + noteId });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Added Reminder
+        /// </summary>
+        /// <param name="userId">user id</param>
+        /// <param name="noteId">note id</param>
+        /// <param name="dataChanged">Updated data</param>
+        /// <returns>Iaction result</returns>
+        [HttpPut]
+        [Route("api/AddReminder")]
+        public IActionResult AddReminder(int userId, int noteId, string updatedData)
+        {
+            try
+            {
+                bool result = this.noteManger.AddReminder(userId, noteId, updatedData);
+                if (result == true)
+                {
+                    return this.Ok(new { Status = true, Result = "Remind added Successfull For note ID " + noteId });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = "Remind added Unsuccessfull For note ID " + noteId });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Remove Reminder for Note
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>IAction Result</returns>
+        [HttpPut]
+        [Route("api/RemoveReminder")]
+        public IActionResult RemoveReminder(int userId, int noteId)
+        {
+            try
+            {
+                bool result = this.noteManger.RemoveReminder(userId, noteId);
+                if (result == true)
+                {
+                    return this.Ok(new { Status = true, Result = "Reminder Removed Successfull For note ID " + noteId });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = "Reminder Removed Unsuccessfull For note ID " + noteId });
                 }
             }
             catch (Exception ex)

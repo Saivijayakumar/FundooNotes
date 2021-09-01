@@ -1,10 +1,7 @@
-﻿using FundooNotes;
-using FundooNotes.Repository.Context;
+﻿using FundooNotes.Repository.Context;
 using FundooNotes.Repository.Interface;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FundooNotes.Repository.Repository
 {
@@ -43,14 +40,14 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
-        public bool ChangeTitle(int userId, int noteId)
+        public bool ChangeTitle(int userId, int noteId, string updatedData)
         {
             try
             {
                 var noteData = this.userContext.Note.Where(d => d.UserId == userId && d.NoteId == noteId).FirstOrDefault();
                 if (noteData != null)
                 {
-                    noteData.Title = "now it changed";
+                    noteData.Title = updatedData;
                     this.userContext.SaveChanges();
                     return true;
                 }
@@ -62,14 +59,14 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
-        public bool ChangeDescription(int userId, int noteId)
+        public bool ChangeDescription(int userId, int noteId, string updatedData)
         {
             try
             {
                 var noteData = this.userContext.Note.Where(d => d.UserId == userId && d.NoteId == noteId).FirstOrDefault();
                 if (noteData != null)
                 {
-                    noteData.Description = "Now Body is changed here";
+                    noteData.Description = updatedData;
                     this.userContext.SaveChanges();
                     return true;
                 }
@@ -108,6 +105,44 @@ namespace FundooNotes.Repository.Repository
                 if (noteData != null)
                 {
                     noteData.Pin = true;
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool AddReminder(int userId, int noteId, string updatedData)
+        {
+            try
+            {
+                var noteData = this.userContext.Note.Where(d => d.UserId == userId && d.NoteId == noteId).FirstOrDefault();
+                if (noteData != null)
+                {
+                    noteData.RemindMe = updatedData;
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool RemoveReminder(int userId, int noteId)
+        {
+            try
+            {
+                var noteData = this.userContext.Note.Where(d => d.UserId == userId && d.NoteId == noteId).FirstOrDefault();
+                if (noteData != null)
+                {
+                    noteData.RemindMe = "No Reminder";
                     this.userContext.SaveChanges();
                     return true;
                 }

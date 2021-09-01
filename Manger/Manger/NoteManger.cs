@@ -27,11 +27,11 @@ namespace FundooNotes.Manger.Manger
             }
         }
         
-        public bool ChangeTitle(int userId, int noteId)
+        public bool ChangeTitle(int userId, int noteId, string updatedData)
         {
             try
             {
-                return this.repository.ChangeTitle(userId,noteId);
+                return this.repository.ChangeTitle(userId,noteId, updatedData);
             }
             catch (Exception ex)
             {
@@ -39,11 +39,11 @@ namespace FundooNotes.Manger.Manger
             }
         }
 
-        public bool ChangeDescription(int userId, int noteId)
+        public bool ChangeDescription(int userId, int noteId, string updatedData)
         {
             try
             {
-                return this.repository.ChangeDescription(userId, noteId);
+                return this.repository.ChangeDescription(userId, noteId, updatedData);
             }
             catch (Exception ex)
             {
@@ -67,6 +67,30 @@ namespace FundooNotes.Manger.Manger
             try
             {
                 return this.repository.Pin(userId, noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool AddReminder(int userId, int noteId, string updatedData)
+        {
+            try
+            {
+                return this.repository.AddReminder(userId, noteId, updatedData);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool RemoveReminder(int userId, int noteId)
+        {
+            try
+            {
+                return this.repository.RemoveReminder(userId, noteId);
             }
             catch (Exception ex)
             {
