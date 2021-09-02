@@ -13,6 +13,6 @@ namespace FundooNotes.Repository.Interface
         bool UnPin(int userId, int noteId);
         bool Pin(int userId, int noteId);
         bool AddReminder(int userId, int noteId, string updatedData);
-        bool RemoveReminder(int userId, int noteId);
+        bool RemoveReminder(int noteId);
     }
 }

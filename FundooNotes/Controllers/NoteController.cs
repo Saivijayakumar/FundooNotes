@@ -7,11 +7,13 @@ namespace FundooNotes.Controllers
 {
     using System;
     using FundooNotes.Manger.Interface;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Note controller class
     /// </summary>
+    //[Authorize]
     public class NoteController : ControllerBase
     {
         /// <summary>
@@ -204,11 +206,11 @@ namespace FundooNotes.Controllers
         /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/RemoveReminder")]
-        public IActionResult RemoveReminder(int userId, int noteId)
+        public IActionResult RemoveReminder(int noteId)
         {
             try
             {
-                bool result = this.noteManger.RemoveReminder(userId, noteId);
+                bool result = this.noteManger.RemoveReminder(noteId);
                 if (result == true)
                 {
                     return this.Ok(new { Status = true, Result = "Reminder Removed Successfull For note ID " + noteId });

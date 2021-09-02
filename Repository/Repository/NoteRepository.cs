@@ -135,11 +135,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
-        public bool RemoveReminder(int userId, int noteId)
+        public bool RemoveReminder(int noteId)
         {
             try
             {
-                var noteData = this.userContext.Note.Where(d => d.UserId == userId && d.NoteId == noteId).FirstOrDefault();
+                var noteData = this.userContext.Note.Where(d => d.NoteId == noteId).FirstOrDefault();
                 if (noteData != null)
                 {
                     noteData.RemindMe = "No Reminder";

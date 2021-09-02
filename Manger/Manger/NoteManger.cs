@@ -86,11 +86,11 @@ namespace FundooNotes.Manger.Manger
             }
         }
 
-        public bool RemoveReminder(int userId, int noteId)
+        public bool RemoveReminder(int noteId)
         {
             try
             {
-                return this.repository.RemoveReminder(userId, noteId);
+                return this.repository.RemoveReminder(noteId);
             }
             catch (Exception ex)
             {
