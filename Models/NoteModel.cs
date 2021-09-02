@@ -19,7 +19,6 @@ namespace FundooNotes
         /// 
         /// </summary>
         public virtual RegisterModel RegisterModel { get; set; }
-        [Required]
         public string Title { get; set; }
         public string Description { get; set; }
         [DefaultValue(false)]
