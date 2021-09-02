@@ -7,13 +7,11 @@ namespace FundooNotes.Controllers
 {
     using System;
     using FundooNotes.Manger.Interface;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Note controller class
     /// </summary>
-    //[Authorize]
     public class NoteController : ControllerBase
     {
         /// <summary>

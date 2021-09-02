@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-﻿using FundooNotes;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace FundooNotes.Manger.Interface
 {
     public interface INoteManger
@@ -16,15 +10,5 @@ namespace FundooNotes.Manger.Interface
         bool AddReminder(int userId, int noteId, string updatedData);
         bool RemoveReminder(int noteId);
 
-=======
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Manger.Interface
-{
-    public interface INoteManger
-    {
->>>>>>> 451872bf57a85d050b56e8bb1909f07f50543b72
     }
 }

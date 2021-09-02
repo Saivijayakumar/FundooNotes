@@ -1,9 +1,4 @@
-﻿using FundooNotes;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FundooNotes.Repository.Interface
+﻿namespace FundooNotes.Repository.Interface
 {
     public interface INoteRepository
     {
