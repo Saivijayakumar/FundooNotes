@@ -89,11 +89,11 @@ namespace FundooNotes.Manger.Manger
         public bool RemoveReminder(int noteId)
         {
             try
-            {
+{
                 return this.repository.RemoveReminder(noteId);
             }
             catch (Exception ex)
-            {
+    {
                 throw new Exception(ex.Message);
             }
         }

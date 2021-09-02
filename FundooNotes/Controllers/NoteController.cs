@@ -221,7 +221,7 @@ namespace FundooNotes.Controllers
                 }
             }
             catch (Exception ex)
-            {
+    {
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
