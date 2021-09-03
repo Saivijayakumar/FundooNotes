@@ -1,9 +1,7 @@
-﻿using FundooNotes;
-using FundooNotes.Manger.Interface;
+﻿using FundooNotes.Manger.Interface;
 using FundooNotes.Repository.Interface;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FundooNotes.Manger.Manger
 {
@@ -27,29 +25,6 @@ namespace FundooNotes.Manger.Manger
             }
         }
         
-        public bool ChangeTitle(int userId, int noteId, string updatedData)
-        {
-            try
-            {
-                return this.repository.ChangeTitle(userId,noteId, updatedData);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public bool ChangeDescription(int userId, int noteId, string updatedData)
-        {
-            try
-            {
-                return this.repository.ChangeDescription(userId, noteId, updatedData);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
         public bool UnPin(int noteId)
         {
             try
@@ -74,11 +49,11 @@ namespace FundooNotes.Manger.Manger
             }
         }
 
-        public bool AddReminder(int noteId, string updatedData)
+        public bool AddReminder(NoteUpdateModel updatedData)
         {
             try
             {
-                return this.repository.AddReminder(noteId, updatedData);
+                return this.repository.AddReminder(updatedData);
             }
             catch (Exception ex)
             {
@@ -98,11 +73,47 @@ namespace FundooNotes.Manger.Manger
             }
         }
 
-        public bool ChangeColor(int noteId, string color)
+        public bool ChangeColor(NoteUpdateModel color)
         {
             try
             {
-                return this.repository.ChangeColor(noteId, color);
+                return this.repository.ChangeColor(color);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool TrashTheNote(int noteId)
+        {
+            try
+            {
+                return this.repository.TrashTheNote(noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool RestoreTheNote(int noteId)
+        {
+            try
+            {
+                return this.repository.RestoreTheNote(noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool UnArchieve(int noteId)
+        {
+            try
+            {
+                return this.repository.UnArchieve(noteId);
             }
             catch (Exception ex)
             {
@@ -115,18 +126,6 @@ namespace FundooNotes.Manger.Manger
             try
             {
                 return this.repository.Archieve(noteId);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public bool Delete(int noteId)
-        {
-            try
-            {
-                return this.repository.Delete(noteId);
             }
             catch (Exception ex)
             {
@@ -199,6 +198,18 @@ namespace FundooNotes.Manger.Manger
             try
             {
                 return this.repository.GetReminderNotes(userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool EmptyTrash(int userId)
+        {
+            try
+            {
+                return this.repository.EmptyTrash(userId);
             }
             catch (Exception ex)
             {

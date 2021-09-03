@@ -8,11 +8,13 @@ namespace FundooNotes.Controllers
     using System;
     using System.Collections.Generic;
     using FundooNotes.Manger.Interface;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Note controller class
     /// </summary>
+    [Authorize]
     public class NoteController : ControllerBase
     {
         /// <summary>
@@ -48,62 +50,6 @@ namespace FundooNotes.Controllers
                 else
                 {
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Note added Unsuccessfull you have to give either title or description" });
-                }
-            }
-            catch (Exception ex)
-            {
-                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
-            }
-        }
-
-        /// <summary>
-        /// Changing title of Note
-        /// </summary>
-        /// <param name="userId">User Id</param>
-        /// <param name="noteId">Note Id</param>
-        /// <returns>IAction Result</returns>
-        [HttpPut]
-        [Route("api/ChangeTitle")]
-        public IActionResult ChangeTitle(int userId, int noteId, string updatedData)
-        {
-            try
-            {
-                bool result = this.noteManger.ChangeTitle(userId, noteId, updatedData);
-                if (result == true)
-                {
-                    return this.Ok(new { Status = true, Result = "Title changed Successfull For note ID " + noteId });
-                }
-                else
-                {
-                    return this.BadRequest(new { Status = false, Result = "Title changed Unsuccessfull ''check the trash is false or true'' For note ID " + noteId });
-                }
-            }
-            catch (Exception ex)
-            {
-                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
-            }
-        }
-
-        /// <summary>
-        /// Changing Description  of Note
-        /// </summary>
-        /// <param name="userId">User Id</param>
-        /// <param name="noteId">Note Id</param>
-        /// <returns>IAction Result</returns>
-        [HttpPut]
-        [Route("api/ChangeDescription")]
-        public IActionResult ChangeDescription(int userId, int noteId, string updatedData)
-        {
-            try
-            {
-                bool result = this.noteManger.ChangeDescription(userId, noteId, updatedData);
-                if (result == true)
-                {
-                    return this.Ok(new { Status = true, Result = "Description changed Successfull For note ID " + noteId });
-                }
-                else
-                {
-                    return this.BadRequest(new { Status = false, Result = "Description changed Unsuccessfull ''check the trash is false or true'' For note ID " + noteId });
                 }
             }
             catch (Exception ex)
@@ -157,7 +103,7 @@ namespace FundooNotes.Controllers
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "Pin Unsuccessfull ''check the trash is false or true'' For note ID " + noteId });
+                    return this.BadRequest(new { Status = false, Result = "Pin Unsuccessfull For note ID " + noteId });
                 }
             }
             catch (Exception ex)
@@ -167,25 +113,24 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// Added Reminder
+        /// Help to add reminder
         /// </summary>
-        /// <param name="noteId">note id</param>
-        /// <param name="dataChanged">Updated data</param>
-        /// <returns>Iaction result</returns>
+        /// <param name="updatedData">It contain noteid and newdata</param>
+        /// <returns></returns>
         [HttpPut]
         [Route("api/AddReminder")]
-        public IActionResult AddReminder(int noteId, string updatedData)
+        public IActionResult AddReminder(NoteUpdateModel updatedData)
         {
             try
             {
-                bool result = this.noteManger.AddReminder(noteId, updatedData);
+                bool result = this.noteManger.AddReminder(updatedData);
                 if (result == true)
                 {
-                    return this.Ok(new { Status = true, Result = "Remind added Successfull For note ID " + noteId });
+                    return this.Ok(new { Status = true, Result = "Remind added Successfull " });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "Remind added Unsuccessfull ''check the trash is false or true'' For note ID " + noteId });
+                    return this.BadRequest(new { Status = false, Result = "Remind added Unsuccessfull" });
                 }
             }
             catch (Exception ex)
@@ -223,25 +168,24 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// method for Color change
+        /// Change color
         /// </summary>
-        /// <param name="noteId">note id</param>
-        /// <param name="color">updated color</param>
-        /// <returns>Iaction result</returns>
+        /// <param name="color">Geting NoteID and Color</param>
+        /// <returns></returns>
         [HttpPut]
         [Route("api/color")]
-        public IActionResult ChangeColor(int noteId, string color)
+        public IActionResult ChangeColor(NoteUpdateModel color)
         {
             try
             {
-                bool result = this.noteManger.ChangeColor(noteId, color);
+                bool result = this.noteManger.ChangeColor(color);
                 if (result == true)
                 {
-                    return this.Ok(new { Status = true, Result = "Color changed Successfull For note ID " + noteId });
+                    return this.Ok(new { Status = true, Result = "Color changed Successfull For note ID " + color.noteId });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "Color changed Unsuccessfull ''check the trash is false or true'' For note ID " + noteId });
+                    return this.BadRequest(new { Status = false, Result = "Color changed Unsuccessfull For note ID " + color.noteId });
                 }
             }
             catch (Exception ex)
@@ -251,12 +195,93 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// Add and remove Archive
+        /// Trash The Note
         /// </summary>
         /// <param name="noteId">Note Id</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
-        [Route("api/Archive")]
+        [Route("api/Send To Trash")]
+        public IActionResult TrashTheNote(int noteId)
+        {
+            try
+            {
+                bool result = this.noteManger.TrashTheNote(noteId);
+                if (result == true)
+                {
+                    return this.Ok(new { Status = true, Result = "Note Send To Trash Successfull" });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = "Note Send To Trash UnSuccessfull" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Restore The Note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>IAction Result</returns>
+        [HttpPut]
+        [Route("api/Restore Note")]
+        public IActionResult RestoreTheNote(int noteId)
+        {
+            try
+            {
+                bool result = this.noteManger.RestoreTheNote(noteId);
+                if (result == true)
+                {
+                    return this.Ok(new { Status = true, Result = "Note Restore Successfull" });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = "Note Restore UnSuccessfull" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Un Archieve
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>IAction Result</returns>
+        [HttpPut]
+        [Route("api/Un Archieve")]
+        public IActionResult UnArchieve(int noteId)
+        {
+            try
+            {
+                bool result = this.noteManger.UnArchieve(noteId);
+                if (result == true)
+                {
+                    return this.Ok(new { Status = true, Result = "Note UnArchieve is Successfull" });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = "Note UnArchieve is UnSuccessfull" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Archieve
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>IAction Result</returns>
+        [HttpPut]
+        [Route("api/Archieve")]
         public IActionResult Archieve(int noteId)
         {
             try
@@ -264,38 +289,11 @@ namespace FundooNotes.Controllers
                 bool result = this.noteManger.Archieve(noteId);
                 if (result == true)
                 {
-                    return this.Ok(new { Status = true, Result = "Archieve updated Successfull For note ID " + noteId });
+                    return this.Ok(new { Status = true, Result = "Note Archieve is Successfull" });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "Archieve updated Unsuccessfull ''check the trash is false or true'' For note ID " + noteId });
-                }
-            }
-            catch (Exception ex)
-            {
-                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
-            }
-        }
-
-        /// <summary>
-        /// Delete and restore
-        /// </summary>
-        /// <param name="noteId">Note Id</param>
-        /// <returns>IAction Result</returns>
-        [HttpPut]
-        [Route("api/Delete And Restore")]
-        public IActionResult Delete(int noteId)
-        {
-            try
-            {
-                bool result = this.noteManger.Delete(noteId);
-                if (result == true)
-                {
-                    return this.Ok(new { Status = true, Result = "Trash coloum updated Successfull For note ID " + noteId });
-                }
-                else
-                {
-                    return this.BadRequest(new { Status = false, Result = "Trash coloum updated Unsuccessfull ''check the trash is false or true'' For note ID " + noteId });
+                    return this.BadRequest(new { Status = false, Result = "Note Archieve is UnSuccessfull" });
                 }
             }
             catch (Exception ex)
@@ -317,7 +315,7 @@ namespace FundooNotes.Controllers
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "Data Updated Unsuccessfull ''check the trash is false or true'' For note ID " + noteId });
+                    return this.BadRequest(new { Status = false, Result = "Data Updated Unsuccessfull For note ID " + noteId });
                 }
             }
             catch (Exception ex)
@@ -344,7 +342,7 @@ namespace FundooNotes.Controllers
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "Delete of Note permanently is Unsuccessfull ''check the trash is false or true'' For note ID " + noteId });
+                    return this.BadRequest(new { Status = false, Result = "Delete of Note permanently is Unsuccessfull For note ID " + noteId });
                 }
             }
             catch (Exception ex)
@@ -452,6 +450,33 @@ namespace FundooNotes.Controllers
                 else
                 {
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Geting Reminder notes UnSuccessfull May be you don't have any notes or ''check the trash is false or true''" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Deleteing all notes in trash
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <returns>IAction Result</returns>
+        [HttpDelete]
+        [Route("api/Empty Trash")]
+        public IActionResult EmptyTrash(int userId)
+        {
+            try
+            {
+                bool result = this.noteManger.EmptyTrash(userId);
+                if (result == true)
+                {
+                    return this.Ok(new { Status = true, Message = "Empty Trash is Successfull" });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Empty Trash is UnSuccessfull" });
                 }
             }
             catch (Exception ex)

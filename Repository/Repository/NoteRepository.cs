@@ -1,4 +1,5 @@
-﻿using FundooNotes.Repository.Context;
+﻿using EFCore.BulkExtensions;
+using FundooNotes.Repository.Context;
 using FundooNotes.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -41,50 +42,12 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
-        public bool ChangeTitle(int userId, int noteId, string updatedData)
-        {
-            try
-            {
-                var noteData = this.userContext.Note.Where(d => d.UserId == userId && d.NoteId == noteId).FirstOrDefault();
-                if (noteData != null && noteData.Trash != true)
-                {
-                    noteData.Title = updatedData;
-                    this.userContext.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (ArgumentNullException ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public bool ChangeDescription(int userId, int noteId, string updatedData)
-        {
-            try
-            {
-                var noteData = this.userContext.Note.Where(d => d.UserId == userId && d.NoteId == noteId).FirstOrDefault();
-                if (noteData != null && noteData.Trash != true)
-                {
-                    noteData.Description = updatedData;
-                    this.userContext.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (ArgumentNullException ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
         public bool UnPin(int noteId)
         {
             try
             {
                 var noteData = this.userContext.Note.Where(d => d.NoteId == noteId).FirstOrDefault();
-                if (noteData != null && noteData.Trash != true)
+                if (noteData != null)
                 {
                     noteData.Pin = false;
                     this.userContext.SaveChanges();
@@ -103,7 +66,7 @@ namespace FundooNotes.Repository.Repository
             try
             {
                 var noteData = this.userContext.Note.Where(d =>d.NoteId == noteId).FirstOrDefault();
-                if (noteData != null && noteData.Trash != true)
+                if (noteData != null)
                 {
                     noteData.Pin = true;
                     noteData.Archieve = false;
@@ -118,14 +81,14 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
-        public bool AddReminder(int noteId, string updatedData)
+        public bool AddReminder(NoteUpdateModel updatedData)
         {
             try
             {
-                var noteData = this.userContext.Note.Where(d =>d.NoteId == noteId).FirstOrDefault();
-                if (noteData != null && noteData.Trash != true)
+                var noteData = this.userContext.Note.Where(d =>d.NoteId == updatedData.noteId).FirstOrDefault();
+                if (noteData != null)
                 {
-                    noteData.RemindMe = updatedData;
+                    noteData.RemindMe = updatedData.newData;
                     this.userContext.SaveChanges();
                     return true;
                 }
@@ -142,7 +105,7 @@ namespace FundooNotes.Repository.Repository
             try
             {
                 var noteData = this.userContext.Note.Find(noteId);
-                if (noteData != null && noteData.Trash != true)
+                if (noteData != null)
                 {
                     noteData.RemindMe = null;
                     this.userContext.SaveChanges();
@@ -156,20 +119,79 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
-        public bool ChangeColor(int noteId, string color)
+        public bool ChangeColor(NoteUpdateModel color)
         {
             try
             {
-                var noteData = this.userContext.Note.Find(noteId);
-                if (noteData != null && noteData.Trash != true)
+                var noteData = this.userContext.Note.Find(color.noteId);
+                if (noteData != null)
                 {
-                    noteData.Color = color;
+                    noteData.Color = color.newData;
                     this.userContext.SaveChanges();
                     return true;
                 }
                 return false;
             }
             catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool TrashTheNote(int noteId)
+        {
+            try
+            {
+                var noteData = this.userContext.Note.Find(noteId);
+                if(noteData != null)
+                {
+                    noteData.Trash = true;
+                    noteData.RemindMe = null;
+                    noteData.Pin = false;
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool RestoreTheNote(int noteId)
+        {
+            try
+            {
+                var noteData = this.userContext.Note.Find(noteId);
+                if (noteData != null)
+                {
+                    noteData.Trash = false;
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool UnArchieve(int noteId)
+        {
+            try
+            {
+                var noteData = this.userContext.Note.Find(noteId);
+                if (noteData != null)
+                {
+                    noteData.Archieve = false;
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -179,53 +201,17 @@ namespace FundooNotes.Repository.Repository
         {
             try
             {
-                bool updateArchieve;
                 var noteData = this.userContext.Note.Find(noteId);
-                if (noteData.Archieve == true)
-                {
-                    updateArchieve = false;
-                }
-                else
-                {
-                    updateArchieve = true;
-                }
-                if (noteData != null && noteData.Trash != true)
-                {
-                    noteData.Archieve = updateArchieve;
-                    this.userContext.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (ArgumentNullException ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public bool Delete(int noteId)
-        {
-            try
-            {
-                bool updateTrash;
-                var noteData = this.userContext.Note.Find(noteId);
-                if (noteData.Trash == true)
-                {
-                    updateTrash = false;
-                }
-                else
-                {
-                    updateTrash = true;
-                }
                 if (noteData != null)
                 {
-                    noteData.Trash = updateTrash;
+                    noteData.Archieve = true;
+                    noteData.Pin = false;
                     this.userContext.SaveChanges();
                     return true;
                 }
                 return false;
             }
-            catch (ArgumentNullException ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -236,7 +222,7 @@ namespace FundooNotes.Repository.Repository
             try
             {
                 var noteData = this.userContext.Note.Find(noteId);
-                if (noteData != null && noteData.Trash != true)
+                if (noteData != null)
                 {
                     noteData.Title = titleData;                    
                     noteData.Description = descriptionData;
@@ -331,6 +317,24 @@ namespace FundooNotes.Repository.Repository
                     return noteData;
                 }
                 return null;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool EmptyTrash(int userId)
+        {
+            try
+            {
+                var noteData = this.userContext.Note.Where(x => x.UserId == userId).ToList();
+                if (noteData.Count > 0)
+                {
+                    this.userContext.BulkDelete(noteData);
+                    return true;
+                }
+                return false;
             }
             catch (ArgumentNullException ex)
             {

@@ -11,6 +11,7 @@ namespace FundooNotes.Repository.Repository
     using System.Net;
     using System.Net.Mail;
     using System.Security.Claims;
+    using System.Text;
     using Experimental.System.Messaging;
     using FundooNotes.Repository.Context;
     using FundooNotes.Repository.Interface;
@@ -237,7 +238,7 @@ namespace FundooNotes.Repository.Repository
         /// <returns>Token string</returns>
         public string GenerateToken(string email)
         {
-            byte[] key = Convert.FromBase64String(this.configuration["SecretKey"]);
+            byte[] key = Encoding.UTF8.GetBytes(this.configuration["SecretKey"]);
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
             {
