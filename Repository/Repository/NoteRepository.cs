@@ -69,7 +69,6 @@ namespace FundooNotes.Repository.Repository
                 if (noteData != null)
                 {
                     noteData.Pin = true;
-                    noteData.Archieve = false;
                     this.userContext.SaveChanges();
                     return true;
                 }
@@ -146,8 +145,6 @@ namespace FundooNotes.Repository.Repository
                 if(noteData != null)
                 {
                     noteData.Trash = true;
-                    noteData.RemindMe = null;
-                    noteData.Pin = false;
                     this.userContext.SaveChanges();
                     return true;
                 }
