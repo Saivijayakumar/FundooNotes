@@ -304,18 +304,18 @@ namespace FundooNotes.Controllers
 
         [HttpPut]
         [Route("api/Update")]
-        public IActionResult UpdateNote(int noteId,string titleData,string descriptionData)
+        public IActionResult UpdateNote(updateNoteModel updateNoteModel)
         {
             try
             {
-                bool result = this.noteManger.UpdateNote(noteId,titleData,descriptionData);
+                bool result = this.noteManger.UpdateNote(updateNoteModel);
                 if (result == true)
                 {
-                    return this.Ok(new { Status = true, Result = "Data Updated Successfull For note ID " + noteId });
+                    return this.Ok(new { Status = true, Result = "Data Updated Successfull For note ID " + updateNoteModel.noteId });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "Data Updated Unsuccessfull For note ID " + noteId });
+                    return this.BadRequest(new { Status = false, Result = "Data Updated Unsuccessfull For note ID " + updateNoteModel.noteId });
                 }
             }
             catch (Exception ex)

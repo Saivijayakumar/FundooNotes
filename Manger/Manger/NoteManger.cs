@@ -133,11 +133,11 @@ namespace FundooNotes.Manger.Manger
             }
         }
 
-        public bool UpdateNote(int noteId, string titleData, string descriptionData)
+        public bool UpdateNote(updateNoteModel updateNoteModel)
         {
             try
             {
-                return this.repository.UpdateNote(noteId,titleData,descriptionData);
+                return this.repository.UpdateNote(updateNoteModel);
             }
             catch (Exception ex)
             {

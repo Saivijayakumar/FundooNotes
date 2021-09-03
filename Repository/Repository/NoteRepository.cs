@@ -69,6 +69,7 @@ namespace FundooNotes.Repository.Repository
                 if (noteData != null)
                 {
                     noteData.Pin = true;
+                    noteData.Archieve = false;
                     this.userContext.SaveChanges();
                     return true;
                 }
@@ -145,6 +146,8 @@ namespace FundooNotes.Repository.Repository
                 if(noteData != null)
                 {
                     noteData.Trash = true;
+                    noteData.RemindMe = null;
+                    noteData.Pin = false;
                     this.userContext.SaveChanges();
                     return true;
                 }
@@ -214,15 +217,15 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
-        public bool UpdateNote(int noteId, string titleData, string descriptionData)
+        public bool UpdateNote(updateNoteModel updateNoteModel)
         {
             try
             {
-                var noteData = this.userContext.Note.Find(noteId);
+                var noteData = this.userContext.Note.Find(updateNoteModel.noteId);
                 if (noteData != null)
                 {
-                    noteData.Title = titleData;                    
-                    noteData.Description = descriptionData;
+                    noteData.Title = updateNoteModel.title;                    
+                    noteData.Description = updateNoteModel.description;
                     this.userContext.SaveChanges();
                     return true;
                 }

@@ -14,7 +14,7 @@ namespace FundooNotes.Repository.Interface
         bool RestoreTheNote(int noteId);
         bool UnArchieve(int noteId);
         bool Archieve(int noteId);
-        bool UpdateNote(int noteId, string titleData, string descriptionData);
+        bool UpdateNote(updateNoteModel updateNoteModel);
         bool Deletepermanently(int noteId);
         List<NoteModel> GetNotes(int userId);
         List<NoteModel> GetTrashNotes(int userId);
