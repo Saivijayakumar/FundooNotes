@@ -69,7 +69,6 @@ namespace FundooNotes
                                 }
                             },
                             new string[] {}
-
                     }
                 });
             });
