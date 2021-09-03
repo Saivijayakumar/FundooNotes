@@ -106,6 +106,7 @@ namespace FundooNotes.Repository.Repository
                 if (noteData != null && noteData.Trash != true)
                 {
                     noteData.Pin = true;
+                    noteData.Archieve = false;
                     this.userContext.SaveChanges();
                     return true;
                 }
