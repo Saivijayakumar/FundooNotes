@@ -28,7 +28,7 @@ namespace FundooNotes.Repository.Repository
         {
             try
             {
-                if (noteData.Title != null || noteData.Description != null)
+                if (noteData != null)
                 {
                     this.userContext.Note.Add(noteData);
                     this.userContext.SaveChanges();
