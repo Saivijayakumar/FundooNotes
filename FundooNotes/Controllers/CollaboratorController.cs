@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="UserController.cs" company="Bridgelabz">
+// <copyright file="CollaboratorController.cs" company="Bridgelabz">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -44,7 +44,7 @@ namespace FundooNotes.Controllers
                 string result = this.collaboratorManger.AddCollaborator(collaborator);
                 if (result == "Collaborator Added Successfull")
                 {
-                    return this.Ok(new { Status = true, Message = result+" For "+collaborator.collaboratorEmail});
+                    return this.Ok(new { Status = true, Message = result + "For" + collaborator.collaboratorEmail });
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace FundooNotes.Controllers
                 string result = this.collaboratorManger.RemoveCollaborator(collaboratorId);
                 if (result == "Collaborator Removed Successfull")
                 {
-                    return this.Ok(new { Status = true, Message = result});
+                    return this.Ok(new { Status = true, Message = result });
                 }
                 else
                 {
@@ -87,7 +87,7 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Get Collaborator
         /// </summary>
-        /// <param name="collaboratorId">Note ID</param>
+        /// <param name="noteId">Note ID</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
         [Route("api/Get Collaborator")]
@@ -102,7 +102,7 @@ namespace FundooNotes.Controllers
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Message =" No collaborator" });
+                    return this.BadRequest(new { Status = false, Message = " No collaborator" });
                 }
             }
             catch (Exception ex)

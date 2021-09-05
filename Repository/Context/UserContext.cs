@@ -21,10 +21,18 @@ namespace FundooNotes.Repository.Context
         }
 
         /// <summary>
-        /// Gets or sets a value indicating  the  values in table
+        /// Gets or sets a value indicating  the  values in Users table
         /// </summary>
         public DbSet<RegisterModel> Users { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating  the  values in Note table
+        /// </summary>
         public DbSet<NoteModel> Note { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating  the  values in Collaborator table
+        /// </summary>
         public DbSet<CollaboratorModel> Collaborator { get; set; }
     }
 }

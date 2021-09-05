@@ -115,8 +115,8 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Help to add reminder
         /// </summary>
-        /// <param name="updatedData">It contain noteid and newdata</param>
-        /// <returns></returns>
+        /// <param name="updatedData">It contain note Id and new data</param>
+        /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/AddReminder")]
         public IActionResult AddReminder(NoteUpdateModel updatedData)
@@ -142,7 +142,6 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Remove Reminder for Note
         /// </summary>
-        /// <param name="userId">User Id</param>
         /// <param name="noteId">Note Id</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
@@ -170,8 +169,8 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Change color
         /// </summary>
-        /// <param name="color">Geting NoteID and Color</param>
-        /// <returns></returns>
+        /// <param name="color">Getting NoteID and Color</param>
+        /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/color")]
         public IActionResult ChangeColor(NoteUpdateModel color)
@@ -249,7 +248,7 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// Un Archieve
+        /// Un Archive
         /// </summary>
         /// <param name="noteId">Note Id</param>
         /// <returns>IAction Result</returns>
@@ -276,7 +275,7 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// Archieve
+        /// Archive Note
         /// </summary>
         /// <param name="noteId">Note Id</param>
         /// <returns>IAction Result</returns>
@@ -302,6 +301,11 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Updating Note 
+        /// </summary>
+        /// <param name="updateNoteModel">Updated Values</param>
+        /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/Update")]
         public IActionResult UpdateNote(updateNoteModel updateNoteModel)
@@ -352,7 +356,7 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// get notes for perticular user
+        /// get notes for particular user
         /// </summary>
         /// <param name="userId">User Id</param>
         /// <returns>IAction Result</returns>
@@ -404,6 +408,7 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
+
         /// <summary>
         /// get Archive Notes
         /// </summary>
@@ -459,7 +464,7 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// Deleteing all notes in trash
+        /// Deleting all notes in trash
         /// </summary>
         /// <param name="userId">User Id</param>
         /// <returns>IAction Result</returns>

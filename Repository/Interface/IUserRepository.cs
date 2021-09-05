@@ -23,6 +23,12 @@ namespace FundooNotes.Repository.Interface
         /// <param name="userData">It contain email and password</param>
         /// <returns>true or false</returns>
         bool Login(LoginModel userData);
+
+        /// <summary>
+        /// Generate Token
+        /// </summary>
+        /// <param name="Email">Login mail</param>
+        /// <returns>JWT token</returns>
         string GenerateToken(string Email);
 
         /// <summary>
