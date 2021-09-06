@@ -24,5 +24,29 @@ namespace FundooNotes.Manger.Manger
                 throw new Exception(ex.Message);
             }
         }
+
+        public string DeleteLable(string lableName)
+        {
+            try
+            {
+                return lableRepository.DeleteLable(lableName);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public string removeLableInNote(int lableId)
+        {
+            try
+            {
+                return lableRepository.removeLableInNote(lableId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

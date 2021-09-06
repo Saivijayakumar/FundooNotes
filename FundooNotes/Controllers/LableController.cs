@@ -36,5 +36,50 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
+
+        [HttpDelete]
+        [Route("api/Remove Lable In Note")]
+        public IActionResult removeLableInNote(int lableId)
+        {
+            try
+            {
+                string result = this.lableManger.removeLableInNote(lableId);
+                if (result == "Lable Removed Successfull")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Remove Lable Method", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpDelete]
+        [Route("api/Delete Lable")]
+        public IActionResult DeleteLable(string lableName)
+        {
+            try
+            {
+                string result = this.lableManger.DeleteLable(lableName);
+                if (result == "Lable Deleted Successfull")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Delete Lable Method", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
     }
 }

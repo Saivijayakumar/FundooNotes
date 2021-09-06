@@ -7,5 +7,7 @@ namespace FundooNotes.Manger.Interface
     public interface ILableManger
     {
         string AddLable(LableModel lable);
+        string removeLableInNote(int lableId);
+        string DeleteLable(string lableName);
     }
 }

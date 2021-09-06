@@ -36,5 +36,43 @@ namespace FundooNotes.Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public string removeLableInNote(int lableId)
+        {
+            try
+            {
+                var lableData = this.userContext.Lable.Find(lableId);
+                if (lableData != null)
+                {
+                    this.userContext.Lable.Remove(lableData);
+                    this.userContext.SaveChanges();
+                    return "Lable Removed Successfull";
+                }
+                return "Lable Removed UnSuccessfull";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public string DeleteLable(string lableName)
+        {
+            try
+            {
+                var lableList = this.userContext.Lable.Where(x => x.lableName == lableName).ToList();
+                if (lableList.Count > 0)
+                {
+                    this.userContext.Lable.RemoveRange(lableList);
+                    this.userContext.SaveChanges();
+                    return "Lable Deleted Successfull";
+                }
+                return "Lable Deleted UnSuccessfull";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
