@@ -34,5 +34,10 @@ namespace FundooNotes.Repository.Context
         /// Gets or sets a value indicating  the  values in Collaborator table
         /// </summary>
         public DbSet<CollaboratorModel> Collaborator { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating  the  values in Lable table
+        /// </summary>
+        public DbSet<LableModel> Lable { get; set; }
     }
 }
