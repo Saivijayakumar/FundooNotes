@@ -9,6 +9,7 @@ namespace FundooNotes.Controllers
     using System.Collections.Generic;
     using FundooNotes.Manger.Interface;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -482,6 +483,61 @@ namespace FundooNotes.Controllers
                 else
                 {
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Empty Trash is UnSuccessfull" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Adding Image to note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <param name="image">Image path</param>
+        /// <returns>IAction Result</returns>
+        [HttpPost]
+        [Route("api/Add Image")]
+        public IActionResult AddImage(int noteId ,IFormFile image)
+        {
+            try
+            {
+                bool result = this.noteManger.AddImage(noteId,image);
+                if (result == true)
+                {
+                    return this.Ok(new { Status = true, Message = "Image is added Successfull" });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Image is added UnSuccessfull" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Remove image for Note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>IAction Result</returns>
+        [HttpPut]
+        [Route("api/Remove Image")]
+        public IActionResult RemoveImage(int noteId)
+        {
+            try
+            {
+                bool result = this.noteManger.RemoveImage(noteId);
+                if (result == true)
+                {
+                    return this.Ok(new { Status = true, Result = "Image Removed Successfull " });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = "Image Removed Unsuccessfull " });
                 }
             }
             catch (Exception ex)

@@ -1,6 +1,10 @@
-﻿using EFCore.BulkExtensions;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using EFCore.BulkExtensions;
 using FundooNotes.Repository.Context;
 using FundooNotes.Repository.Interface;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +18,15 @@ namespace FundooNotes.Repository.Repository
         /// </summary>
         private readonly UserContext userContext;
 
-        public NoteRepository(UserContext userContext)
+        /// <summary>
+        /// this object is used to access the data of cloudinary
+        /// </summary>
+        private readonly IConfiguration configuration;
+
+        public NoteRepository(UserContext userContext , IConfiguration configuration)
         {
             this.userContext = userContext;
+            this.configuration = configuration;
         }
 
         /// <summary>
@@ -337,6 +347,51 @@ namespace FundooNotes.Repository.Repository
                 return false;
             }
             catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool AddImage(int noteId, IFormFile image)
+        {
+            try
+            {
+                var noteData = this.userContext.Note.Find(noteId);
+                if (noteData != null)
+                {
+                    Account account = new Account(configuration["CloudinaryAccount:CloudName"],configuration["CloudinaryAccount:ApiKey"],configuration["CloudinaryAccount:ApiSecret"]);
+                    Cloudinary cloudinary = new Cloudinary(account);
+                    ImageUploadParams uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(image.FileName, image.OpenReadStream())
+                    };
+                    var uploadResult = cloudinary.Upload(uploadParams);
+                    noteData.Image = uploadResult.Url.ToString();
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool RemoveImage(int noteId)
+        {
+            try
+            {
+                var noteData = this.userContext.Note.Find(noteId);
+                if (noteData != null)
+                {
+                    noteData.Image = null;
+                    this.userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

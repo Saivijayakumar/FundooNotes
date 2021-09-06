@@ -3,7 +3,6 @@ using FundooNotes.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FundooNotes.Repository.Repository
 {
@@ -28,8 +27,13 @@ namespace FundooNotes.Repository.Repository
         {
             try
             {
+                var ownerEmail = (from o in this.userContext.Note
+                                  join i in this.userContext.Users
+                                  on o.UserId equals i.UserId
+                                  where collaborator.NoteId == o.NoteId
+                                  select i.Email).SingleOrDefault();
                 var emailOccurrence = this.userContext.Collaborator.Where(x => x.collaboratorEmail == collaborator.collaboratorEmail && x.NoteId == collaborator.NoteId).FirstOrDefault();
-                if (emailOccurrence == null)
+                if (ownerEmail.Equals(collaborator.collaboratorEmail) == false && emailOccurrence == null)
                 {
                     this.userContext.Collaborator.Add(collaborator);
                     this.userContext.SaveChanges();
@@ -43,14 +47,14 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
-        public List<string> GetCollaborator(int noteId)
+        public List<CollaboratorModel> GetCollaborator(int noteId)
         {
             try
             {
-                var collaboratorList = this.userContext.Collaborator.Where(x => x.NoteId == noteId).Select(x => x.collaboratorEmail).ToList();
-                if (collaboratorList != null)
+                var listOfCollaborator = this.userContext.Collaborator.Where(x => x.NoteId == noteId).ToList();
+                if (listOfCollaborator != null)
                 {
-                    return collaboratorList;
+                    return listOfCollaborator;
                 }
                 return null;
             }

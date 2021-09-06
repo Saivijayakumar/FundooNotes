@@ -26,7 +26,7 @@ namespace FundooNotes.Manger.Manger
             }
         }
 
-        public List<string> GetCollaborator(int noteId)
+        public List<CollaboratorModel> GetCollaborator(int noteId)
         {
             try
             {

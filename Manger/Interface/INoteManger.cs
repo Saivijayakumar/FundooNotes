@@ -6,6 +6,7 @@
 
 namespace FundooNotes.Manger.Interface
 {
+    using Microsoft.AspNetCore.Http;
     using System.Collections.Generic;
 
     /// <summary>
@@ -131,5 +132,20 @@ namespace FundooNotes.Manger.Interface
         /// <param name="userId">User Id</param>
         /// <returns>true or false</returns>
         bool EmptyTrash(int userId);
+
+        /// <summary>
+        /// Adding Image to note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <param name="image">Image path</param>
+        /// <returns>true or false</returns>
+        bool AddImage(int noteId, IFormFile image);
+
+        /// <summary>
+        /// Remove Image for Note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>true or false</returns>
+        bool RemoveImage(int noteId);
     }
 }

@@ -32,6 +32,6 @@ namespace FundooNotes.Manger.Interface
         /// </summary>
         /// <param name="noteId">Note ID</param>
         /// <returns>Output string</returns>
-        List<string> GetCollaborator(int noteId);
+        List<CollaboratorModel> GetCollaborator(int noteId);
     }
 }

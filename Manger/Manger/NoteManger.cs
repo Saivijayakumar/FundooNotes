@@ -1,5 +1,6 @@
 ﻿using FundooNotes.Manger.Interface;
 using FundooNotes.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 
@@ -210,6 +211,30 @@ namespace FundooNotes.Manger.Manger
             try
             {
                 return this.repository.EmptyTrash(userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool AddImage(int noteId, IFormFile image)
+        {
+            try
+            {
+                return this.repository.AddImage(noteId,image);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool RemoveImage(int noteId)
+        {
+            try
+            {
+                return this.repository.RemoveImage(noteId);
             }
             catch (Exception ex)
             {

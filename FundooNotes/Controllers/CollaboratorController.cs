@@ -95,10 +95,10 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                List<string> collaboratorList = this.collaboratorManger.GetCollaborator(noteId);
+                List<CollaboratorModel> collaboratorList = this.collaboratorManger.GetCollaborator(noteId);
                 if (collaboratorList != null)
                 {
-                    return this.Ok(new ResponseModel<List<string>>() { Status = true, Message = "collaborator List", Data = collaboratorList });
+                    return this.Ok(new ResponseModel<List<CollaboratorModel>>() { Status = true, Message = "collaborator List", Data = collaboratorList });
                 }
                 else
                 {
