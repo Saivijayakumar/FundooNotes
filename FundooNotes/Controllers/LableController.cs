@@ -81,5 +81,26 @@ namespace FundooNotes.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("api/Rename Lable")]
+        public IActionResult RenameLable(string updateLableName)
+        {
+            try
+            {
+                string result = this.lableManger.RenameLable(updateLableName);
+                if (result == "Lable Deleted Successfull")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Delete Lable Method", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

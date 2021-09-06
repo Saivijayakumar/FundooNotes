@@ -74,5 +74,27 @@ namespace FundooNotes.Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public string RenameLable(string updateLableName , string lableName)
+        {
+            try
+            {
+                var lableList = this.userContext.Lable.Where(x => x.lableName == lableName).ToList();
+                if (lableList.Count > 0)
+                {
+                    foreach(var i in lableList)
+                    {
+                        i.lableName = updateLableName;
+                    }
+                    this.userContext.SaveChanges();
+                    return "Lable Name Updated Successfull";
+                }
+                return "Lable Name Updated UnSuccessfull";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

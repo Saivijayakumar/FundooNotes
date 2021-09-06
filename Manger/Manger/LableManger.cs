@@ -48,5 +48,17 @@ namespace FundooNotes.Manger.Manger
                 throw new Exception(ex.Message);
             }
         }
+
+        public string RenameLable(string updateLableName, string lableName)
+        {
+            try
+            {
+                return lableRepository.RenameLable(updateLableName, lableName);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
