@@ -60,5 +60,40 @@ namespace FundooNotes.Manger.Manger
                 throw new Exception(ex.Message);
             }
         }
+
+        public List<LableModel> GetAllLables(int userId)
+        {
+            try
+            {
+                return lableRepository.GetAllLables(userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<LableModel> GetNoteLables(int noteId)
+        {
+            try
+            {
+                return lableRepository.GetNoteLables(noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public List<LableModel> GetLables(int userId, string lableName)
+        {
+            try
+            {
+                return lableRepository.GetLables(userId,lableName);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

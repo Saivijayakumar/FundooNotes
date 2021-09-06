@@ -83,18 +83,84 @@ namespace FundooNotes.Controllers
 
         [HttpPut]
         [Route("api/Rename Lable")]
-        public IActionResult RenameLable(string updateLableName)
+        public IActionResult RenameLable(string updateLableName, string lableName)
         {
             try
             {
-                string result = this.lableManger.RenameLable(updateLableName);
-                if (result == "Lable Deleted Successfull")
+                string result = this.lableManger.RenameLable(updateLableName, lableName);
+                if (result == "Lable Name Updated Successfull")
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Delete Lable Method", Data = result });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Rename Lable Method", Data = result });
                 }
                 else
                 {
                     return this.BadRequest(new { Status = false, Result = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("api/Get All Lables")]
+        public IActionResult GetAllLables(int userId)
+        {
+            try
+            {
+                List<LableModel> result = this.lableManger.GetAllLables(userId);
+                if (result.Count > 0)
+                {
+                    return this.Ok(new ResponseModel<List<LableModel>>() { Status = true, Message = "Get Lable Method", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = "No lables Present at given UserId" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("api/Get Note Lables")]
+        public IActionResult GetNoteLables(int noteId)
+        {
+            try
+            {
+                List<LableModel> result = this.lableManger.GetNoteLables(noteId);
+                if (result.Count > 0)
+                {
+                    return this.Ok(new ResponseModel<List<LableModel>>() { Status = true, Message = "Get Note Lable Method", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = "No lables Present at given NoteId" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("api/Get Lables ")]
+        public IActionResult GetLables(int userId,string lableName)
+        {
+            try
+            {
+                List<LableModel> result = this.lableManger.GetLables(userId,lableName);
+                if (result.Count > 0)
+                {
+                    return this.Ok(new ResponseModel<List<LableModel>>() { Status = true, Message = "Get Lables Method", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = "No lables Present at given NoteId" });
                 }
             }
             catch (Exception ex)

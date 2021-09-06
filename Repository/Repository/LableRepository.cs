@@ -96,5 +96,56 @@ namespace FundooNotes.Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public List<LableModel> GetAllLables(int userId)
+        {
+            try
+            {
+                var allLables = this.userContext.Lable.Where(x => x.UserId == userId).ToList();
+                if(allLables.Count > 0)
+                {
+                    return allLables;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<LableModel> GetNoteLables(int noteId)
+        {
+            try
+            {
+                var allNoteLables = this.userContext.Lable.Where(x => x.NoteId == noteId).ToList();
+                if (allNoteLables.Count > 0)
+                {
+                    return allNoteLables;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<LableModel> GetLables(int userId, string lableName)
+        {
+            try
+            {
+                var labledNotes = this.userContext.Lable.Where(x => x.UserId == userId && x.lableName == lableName).ToList();
+                if (labledNotes.Count > 0)
+                {
+                    return labledNotes;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
