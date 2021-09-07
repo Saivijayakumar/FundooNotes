@@ -13,10 +13,20 @@ namespace FundooNotes.Repository.Repository
         /// </summary>
         private readonly UserContext userContext;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LableRepository" /> class
+        /// </summary>
+        /// <param name="userContext"></param>
         public LableRepository(UserContext userContext)
         {
             this.userContext = userContext;
         }
+
+        /// <summary>
+        /// add lable to user
+        /// </summary>
+        /// <param name="lable">lable info</param>
+        /// <returns>output message as string</returns>
         public string AddLable(LableModel lable)
         {
             try
@@ -36,6 +46,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// add lable to to note
+        /// </summary>
+        /// <param name="lable">lable info</param>
+        /// <returns>output message as string</returns>
         public string AddLableInNote(LableModel lable)
         {
             try
@@ -58,6 +73,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// remove lable for note
+        /// </summary>
+        /// <param name="lableId">lable id</param>
+        /// <returns>output message as string</returns>
         public string removeLableInNote(int lableId)
         {
             try
@@ -77,6 +97,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// delete lable form user
+        /// </summary>
+        /// <param name="deleteData">user id and lable name</param>
+        /// <returns>output message as string</returns>
         public string DeleteLable(helperLableModel deleteData)
         {
             try
@@ -96,6 +121,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// method for rename lable
+        /// </summary>
+        /// <param name="updateLable">getting values for Rename the lable</param>
+        /// <returns>output message as string</returns>
         public string RenameLable(helperLableModel updateLable)
         {
             try
@@ -118,11 +148,16 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Getting all lables 
+        /// </summary>
+        /// <param name="userId">user id to get all lables of </param>
+        /// <returns>list of lables</returns>
         public List<LableModel> GetAllLables(int userId)
         {
             try
             {
-                var allLables = this.userContext.Lable.Where(x => x.UserId == userId).ToList();
+                var allLables = this.userContext.Lable.Where(x => x.UserId == userId && x.NoteId == null).ToList();
                 if(allLables.Count > 0)
                 {
                     return allLables;
@@ -135,6 +170,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Getting Lables of note
+        /// </summary>
+        /// <param name="noteId">note id to get all lables of note</param>
+        /// <returns>list of lables</returns>
         public List<LableModel> GetNoteLables(int noteId)
         {
             try
@@ -152,6 +192,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Getting  lables by lable name
+        /// </summary>
+        /// <param name="lableData">receive only user id and lable name</param>
+        /// <returns>list of lables</returns>
         public List<LableModel> GetLables(helperLableModel lableData)
         {
             try
