@@ -8,10 +8,10 @@ namespace FundooNotes.Repository.Interface
     {
         string AddLable(LableModel lable);
         string removeLableInNote(int lableId);
-        string DeleteLable(string lableName);
-        string RenameLable(string updateLableName, string lableName);
+        string DeleteLable(helperLableModel deleteData);
+        string RenameLable(helperLableModel updateLable);
         List<LableModel> GetAllLables(int userId);
         List<LableModel> GetNoteLables(int noteId);
-        List<LableModel> GetLables(int userId, string lableName);
+        List<LableModel> GetLables(helperLableModel lableData);
     }
 }

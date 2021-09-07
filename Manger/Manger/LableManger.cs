@@ -2,7 +2,6 @@
 using FundooNotes.Repository.Interface;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FundooNotes.Manger.Manger
 {
@@ -25,11 +24,11 @@ namespace FundooNotes.Manger.Manger
             }
         }
 
-        public string DeleteLable(string lableName)
+        public string DeleteLable(helperLableModel deleteData)
         {
             try
             {
-                return lableRepository.DeleteLable(lableName);
+                return lableRepository.DeleteLable(deleteData);
             }
             catch (Exception ex)
             {
@@ -49,11 +48,11 @@ namespace FundooNotes.Manger.Manger
             }
         }
 
-        public string RenameLable(string updateLableName, string lableName)
+        public string RenameLable(helperLableModel updateLable)
         {
             try
             {
-                return lableRepository.RenameLable(updateLableName, lableName);
+                return lableRepository.RenameLable(updateLable);
             }
             catch (Exception ex)
             {
@@ -84,11 +83,11 @@ namespace FundooNotes.Manger.Manger
                 throw new Exception(ex.Message);
             }
         }
-        public List<LableModel> GetLables(int userId, string lableName)
+        public List<LableModel> GetLables(helperLableModel lableData)
         {
             try
             {
-                return lableRepository.GetLables(userId,lableName);
+                return lableRepository.GetLables(lableData);
             }
             catch (Exception ex)
             {

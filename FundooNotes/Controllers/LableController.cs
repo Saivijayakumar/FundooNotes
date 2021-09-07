@@ -61,11 +61,11 @@ namespace FundooNotes.Controllers
 
         [HttpDelete]
         [Route("api/Delete Lable")]
-        public IActionResult DeleteLable(string lableName)
+        public IActionResult DeleteLable([FromBody] helperLableModel deleteData)
         {
             try
             {
-                string result = this.lableManger.DeleteLable(lableName);
+                string result = this.lableManger.DeleteLable(deleteData);
                 if (result == "Lable Deleted Successfull")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = "Delete Lable Method", Data = result });
@@ -83,11 +83,11 @@ namespace FundooNotes.Controllers
 
         [HttpPut]
         [Route("api/Rename Lable")]
-        public IActionResult RenameLable(string updateLableName, string lableName)
+        public IActionResult RenameLable([FromBody] helperLableModel updateLable)
         {
             try
             {
-                string result = this.lableManger.RenameLable(updateLableName, lableName);
+                string result = this.lableManger.RenameLable(updateLable);
                 if (result == "Lable Name Updated Successfull")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = "Rename Lable Method", Data = result });
@@ -148,12 +148,12 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPost]
-        [Route("api/Get Lables ")]
-        public IActionResult GetLables(int userId,string lableName)
+        [Route("api/Get Lables")]
+        public IActionResult GetLables([FromBody] helperLableModel lableData)
         {
             try
             {
-                List<LableModel> result = this.lableManger.GetLables(userId,lableName);
+                List<LableModel> result = this.lableManger.GetLables(lableData);
                 if (result.Count > 0)
                 {
                     return this.Ok(new ResponseModel<List<LableModel>>() { Status = true, Message = "Get Lables Method", Data = result });

@@ -22,7 +22,7 @@ namespace FundooNotes.Repository.Repository
         {
             try
             {
-                var lableOccurrence = this.userContext.Lable.Where(x => x.lableName == lable.lableName).SingleOrDefault();
+                var lableOccurrence = this.userContext.Lable.Where(x => x.lableName == lable.lableName && x.UserId == lable.UserId).SingleOrDefault();
                 if (lableOccurrence == null)
                 {
                     this.userContext.Lable.Add(lable);
@@ -56,11 +56,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
-        public string DeleteLable(string lableName)
+        public string DeleteLable(helperLableModel deleteData)
         {
             try
             {
-                var lableList = this.userContext.Lable.Where(x => x.lableName == lableName).ToList();
+                var lableList = this.userContext.Lable.Where(x => x.lableName == deleteData.LableName && x.UserId == deleteData.UserId).ToList();
                 if (lableList.Count > 0)
                 {
                     this.userContext.Lable.RemoveRange(lableList);
@@ -75,16 +75,16 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
-        public string RenameLable(string updateLableName , string lableName)
+        public string RenameLable(helperLableModel updateLable)
         {
             try
             {
-                var lableList = this.userContext.Lable.Where(x => x.lableName == lableName).ToList();
+                var lableList = this.userContext.Lable.Where(x => x.lableName == updateLable.LableName && x.UserId == updateLable.UserId).ToList();
                 if (lableList.Count > 0)
                 {
                     foreach(var i in lableList)
                     {
-                        i.lableName = updateLableName;
+                        i.lableName = updateLable.UpdateLableName;
                     }
                     this.userContext.SaveChanges();
                     return "Lable Name Updated Successfull";
@@ -131,11 +131,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
-        public List<LableModel> GetLables(int userId, string lableName)
+        public List<LableModel> GetLables(helperLableModel lableData)
         {
             try
             {
-                var labledNotes = this.userContext.Lable.Where(x => x.UserId == userId && x.lableName == lableName).ToList();
+                var labledNotes = this.userContext.Lable.Where(x => x.UserId == lableData.UserId && x.lableName == lableData.LableName).ToList();
                 if (labledNotes.Count > 0)
                 {
                     return labledNotes;
