@@ -7,6 +7,7 @@ namespace FundooNotes.Manger.Interface
     public interface ILableManger
     {
         string AddLable(LableModel lable);
+        string AddLableInNote(LableModel lable);
         string removeLableInNote(int lableId);
         string DeleteLable(helperLableModel deleteData);
         string RenameLable(helperLableModel updateLable);

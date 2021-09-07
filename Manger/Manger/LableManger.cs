@@ -24,6 +24,18 @@ namespace FundooNotes.Manger.Manger
             }
         }
 
+        public string AddLableInNote(LableModel lable)
+        {
+            try
+            {
+                return lableRepository.AddLableInNote(lable);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public string DeleteLable(helperLableModel deleteData)
         {
             try

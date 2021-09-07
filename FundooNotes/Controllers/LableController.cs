@@ -37,6 +37,28 @@ namespace FundooNotes.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/Add Lable To Note")]
+        public IActionResult AddLableInNote([FromBody] LableModel lable)
+        {
+            try
+            {
+                string result = this.lableManger.AddLableInNote(lable);
+                if (result == "Lable Added To Note Successfull")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Add Lable Method", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Result = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
         [HttpDelete]
         [Route("api/Remove Lable In Note")]
         public IActionResult removeLableInNote(int lableId)

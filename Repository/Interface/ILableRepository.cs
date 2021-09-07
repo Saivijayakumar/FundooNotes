@@ -7,6 +7,7 @@ namespace FundooNotes.Repository.Interface
     public interface ILableRepository
     {
         string AddLable(LableModel lable);
+        string AddLableInNote(LableModel lable);
         string removeLableInNote(int lableId);
         string DeleteLable(helperLableModel deleteData);
         string RenameLable(helperLableModel updateLable);

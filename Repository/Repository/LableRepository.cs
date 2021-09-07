@@ -3,7 +3,6 @@ using FundooNotes.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FundooNotes.Repository.Repository
 {
@@ -22,7 +21,7 @@ namespace FundooNotes.Repository.Repository
         {
             try
             {
-                var lableOccurrence = this.userContext.Lable.Where(x => x.lableName == lable.lableName && x.UserId == lable.UserId).SingleOrDefault();
+                var lableOccurrence = this.userContext.Lable.Where(x => x.lableName == lable.lableName && x.UserId == lable.UserId && x.NoteId == null).SingleOrDefault();
                 if (lableOccurrence == null)
                 {
                     this.userContext.Lable.Add(lable);
@@ -30,6 +29,28 @@ namespace FundooNotes.Repository.Repository
                     return "Lable Added Successfull";
                 }
                 return "Lable Added UnSuccessfull";
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public string AddLableInNote(LableModel lable)
+        {
+            try
+            {
+                var lablePresent = this.userContext.Lable.Where(x => x.lableName == lable.lableName && x.NoteId == lable.NoteId && x.UserId == lable.UserId).SingleOrDefault();
+                if(lablePresent == null)
+                {
+                    this.userContext.Lable.Add(lable);
+                    this.userContext.SaveChanges();
+                    lable.NoteId = null;
+                    lable.lableId = 0;
+                    AddLable(lable);
+                    return "Lable Added To Note Successfull";
+                }
+                return "Lable Added To Note UnSuccessfull";
             }
             catch(Exception ex)
             {
