@@ -215,11 +215,15 @@ namespace FundooNotes.Repository.Repository
         /// </summary>
         /// <param name="lableData">receive only user id and lable name</param>
         /// <returns>list of lables</returns>
-        public List<LableModel> GetLables(helperLableModel lableData)
+        public List<NoteModel> GetLables(helperLableModel lableData)
         {
             try
             {
-                var labledNotes = this.userContext.Lable.Where(x => x.UserId == lableData.UserId && x.lableName == lableData.LableName).ToList();
+                var labledNotes = (from n in this.userContext.Note
+                                               join l in this.userContext.Lable
+                                               on n.UserId equals l.UserId
+                                               where l.lableName == lableData.LableName && n.UserId == lableData.UserId && l.NoteId != null
+                                               select n).ToList();
                 if (labledNotes.Count > 0)
                 {
                     return labledNotes;

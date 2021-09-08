@@ -95,7 +95,7 @@ namespace FundooNotes.Manger.Manger
                 throw new Exception(ex.Message);
             }
         }
-        public List<LableModel> GetLables(helperLableModel lableData)
+        public List<NoteModel> GetLables(helperLableModel lableData)
         {
             try
             {

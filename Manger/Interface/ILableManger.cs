@@ -67,7 +67,7 @@ namespace FundooNotes.Manger.Interface
         /// get lables by user
         /// </summary>
         /// <param name="lableData">lable data</param>
-        /// <returns>list of lables</returns>
-        List<LableModel> GetLables(helperLableModel lableData);
+        /// <returns>list of notes</returns>
+        List<NoteModel> GetLables(helperLableModel lableData);
     }
 }

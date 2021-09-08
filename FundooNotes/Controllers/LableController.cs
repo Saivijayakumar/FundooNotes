@@ -230,10 +230,10 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                List<LableModel> result = this.lableManger.GetLables(lableData);
+                List<NoteModel> result = this.lableManger.GetLables(lableData);
                 if (result.Count > 0)
                 {
-                    return this.Ok(new ResponseModel<List<LableModel>>() { Status = true, Message = "Get Lables Method", Data = result });
+                    return this.Ok(new ResponseModel<List<NoteModel>>() { Status = true, Message = "Get Lables Method", Data = result });
                 }
                 else
                 {
