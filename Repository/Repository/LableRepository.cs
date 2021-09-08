@@ -1,11 +1,17 @@
-﻿using FundooNotes.Repository.Context;
-using FundooNotes.Repository.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿//-----------------------------------------------------------------------
+// <copyright file="LableRepository.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 
 namespace FundooNotes.Repository.Repository
 {
+    using System;
+    using System.Linq;
+    using FundooNotes.Repository.Context;
+    using FundooNotes.Repository.Interface;
+    using System.Collections.Generic;
+
     public class LableRepository : ILableRepository
     {
         /// <summary>
@@ -130,17 +136,29 @@ namespace FundooNotes.Repository.Repository
         {
             try
             {
-                var lableList = this.userContext.Lable.Where(x => x.lableName == updateLable.LableName && x.UserId == updateLable.UserId).ToList();
-                if (lableList.Count > 0)
+                if (updateLable.LableName != updateLable.UpdateLableName)
                 {
-                    foreach(var i in lableList)
+                    string result = "Lable Name Updated UnSuccessfull";
+                    var newLableOccurrence = this.userContext.Lable.Where(x => x.lableName == updateLable.UpdateLableName && x.UserId == updateLable.UserId && x.NoteId == null).SingleOrDefault();
+                    var lableList = this.userContext.Lable.Where(x => x.lableName == updateLable.LableName && x.UserId == updateLable.UserId).ToList();
+                    if (lableList.Count > 0)
                     {
-                        i.lableName = updateLable.UpdateLableName;
+                        result = "Lable Name Updated Successfull";
+                        if (newLableOccurrence != null)
+                        {
+                            this.userContext.Lable.Remove(newLableOccurrence);
+                            this.userContext.SaveChanges();
+                            Console.WriteLine($"Merge the '{updateLable.LableName}' label with the '{updateLable.UpdateLableName}' label? All notes labeled with '{updateLable.LableName}' will be replaced with '{updateLable.UpdateLableName}', and the '{updateLable.LableName}' label will be deleted.");
+                        }
+                        foreach (var i in lableList)
+                        {
+                            i.lableName = updateLable.UpdateLableName;
+                        }
+                        this.userContext.SaveChanges();
                     }
-                    this.userContext.SaveChanges();
-                    return "Lable Name Updated Successfull";
+                    return result;
                 }
-                return "Lable Name Updated UnSuccessfull";
+                return string.Empty;
             }
             catch (Exception ex)
             {
