@@ -7,6 +7,7 @@ namespace FundooNotes.Controllers
 {
     using System;
     using FundooNotes.Managers.Interface;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using StackExchange.Redis;
@@ -48,10 +49,14 @@ namespace FundooNotes.Controllers
         {
             try
             {
+                string SessionFirstName = "";
+                string SessionEmail = "";
                 bool result = this.manager.Register(userData);
                 if (result == true)
                 {
                     this.logger.LogInformation($" A New Register '{userData.Email}' is Successfull Added ");
+                    HttpContext.Session.SetString(SessionFirstName, userData.FirstName);
+                    HttpContext.Session.SetString(SessionEmail, userData.Email);
                     return this.Ok(new { Status = true, Message = "New User Add Successfull your email is : " + userData.Email });
                 }
                 else

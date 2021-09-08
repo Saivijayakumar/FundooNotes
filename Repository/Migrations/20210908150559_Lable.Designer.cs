@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Repository.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210906131010_Lable")]
+    [Migration("20210908150559_Lable")]
     partial class Lable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,12 +42,16 @@ namespace Repository.Migrations
                     b.ToTable("Collaborator");
                 });
 
-            modelBuilder.Entity("FundooNotes.LableModel", b =>
+            modelBuilder.Entity("FundooNotes.LabelModel", b =>
                 {
-                    b.Property<int>("lableId")
+                    b.Property<int>("LabelId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LabelName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("NoteId")
                         .HasColumnType("int");
@@ -55,17 +59,13 @@ namespace Repository.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("lableName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("lableId");
+                    b.HasKey("LabelId");
 
                     b.HasIndex("NoteId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Lable");
+                    b.ToTable("Label");
                 });
 
             modelBuilder.Entity("FundooNotes.NoteModel", b =>
@@ -146,7 +146,7 @@ namespace Repository.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FundooNotes.LableModel", b =>
+            modelBuilder.Entity("FundooNotes.LabelModel", b =>
                 {
                     b.HasOne("FundooNotes.NoteModel", "NoteModel")
                         .WithMany()

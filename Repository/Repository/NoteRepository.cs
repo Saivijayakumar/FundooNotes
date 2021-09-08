@@ -1,16 +1,24 @@
-﻿using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using EFCore.BulkExtensions;
-using FundooNotes.Repository.Context;
-using FundooNotes.Repository.Interface;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="NoteRepository.cs" company="Bridgelabz">
+//     Company copyright tag.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace FundooNotes.Repository.Repository
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
+    using EFCore.BulkExtensions;
+    using FundooNotes.Repository.Context;
+    using FundooNotes.Repository.Interface;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Configuration;
+
+    /// <summary>
+    /// NoteRepository class
+    /// </summary>
     public class NoteRepository : INoteRepository
     {
         /// <summary>
@@ -23,7 +31,12 @@ namespace FundooNotes.Repository.Repository
         /// </summary>
         private readonly IConfiguration configuration;
 
-        public NoteRepository(UserContext userContext , IConfiguration configuration)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NoteRepository" /> class
+        /// </summary>
+        /// <param name="userContext">Initialize object for userContext</param>
+        /// <param name="configuration">Initialize object for configuration</param>
+        public NoteRepository(UserContext userContext, IConfiguration configuration)
         {
             this.userContext = userContext;
             this.configuration = configuration;
@@ -44,6 +57,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (Exception ex)
@@ -52,6 +66,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// UnPin the Note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>true or false</returns>
         public bool UnPin(int noteId)
         {
             try
@@ -63,6 +82,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (ArgumentNullException ex)
@@ -71,11 +91,16 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Pin the Note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>true or false</returns>
         public bool Pin(int noteId)
         {
             try
             {
-                var noteData = this.userContext.Note.Where(d =>d.NoteId == noteId).FirstOrDefault();
+                var noteData = this.userContext.Note.Where(d => d.NoteId == noteId).FirstOrDefault();
                 if (noteData != null)
                 {
                     noteData.Pin = true;
@@ -83,6 +108,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (ArgumentNullException ex)
@@ -91,17 +117,23 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Help to add reminder
+        /// </summary>
+        /// <param name="updatedData">It contain note Id and new data</param>
+        /// <returns>true or false</returns>
         public bool AddReminder(NoteUpdateModel updatedData)
         {
             try
             {
-                var noteData = this.userContext.Note.Where(d =>d.NoteId == updatedData.noteId).FirstOrDefault();
+                var noteData = this.userContext.Note.Where(d => d.NoteId == updatedData.noteId).FirstOrDefault();
                 if (noteData != null)
                 {
                     noteData.RemindMe = updatedData.newData;
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (ArgumentNullException ex)
@@ -110,6 +142,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Remove Reminder for Note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>true or false</returns>
         public bool RemoveReminder(int noteId)
         {
             try
@@ -121,6 +158,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (ArgumentNullException ex)
@@ -129,6 +167,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Change color
+        /// </summary>
+        /// <param name="color">Getting NoteID and Color</param>
+        /// <returns>true or false</returns>
         public bool ChangeColor(NoteUpdateModel color)
         {
             try
@@ -140,6 +183,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (ArgumentNullException ex)
@@ -148,12 +192,17 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Trash The Note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>true or false</returns>
         public bool TrashTheNote(int noteId)
         {
             try
             {
                 var noteData = this.userContext.Note.Find(noteId);
-                if(noteData != null)
+                if (noteData != null)
                 {
                     noteData.Trash = true;
                     noteData.RemindMe = null;
@@ -161,14 +210,20 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Restore The Note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>true or false</returns>
         public bool RestoreTheNote(int noteId)
         {
             try
@@ -180,6 +235,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (Exception ex)
@@ -188,6 +244,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Un Archive
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>true or false</returns>
         public bool UnArchieve(int noteId)
         {
             try
@@ -199,6 +260,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (Exception ex)
@@ -207,6 +269,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Archive Note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>true or false</returns>
         public bool Archieve(int noteId)
         {
             try
@@ -219,6 +286,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (Exception ex)
@@ -227,6 +295,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Updating Note 
+        /// </summary>
+        /// <param name="updateNoteModel">Updated Values</param>
+        /// <returns>IAction Result</returns>
         public bool UpdateNote(updateNoteModel updateNoteModel)
         {
             try
@@ -239,14 +312,20 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+                 
                 return false;
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Delete permanently
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>true or false</returns>
         public bool Deletepermanently(int noteId)
         {
             try
@@ -258,6 +337,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (ArgumentNullException ex)
@@ -266,6 +346,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// get notes for particular user
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <returns>true or false</returns>
         public List<NoteModel> GetNotes(int userId)
         {
             try
@@ -275,6 +360,7 @@ namespace FundooNotes.Repository.Repository
                 {
                     return noteData;
                 }
+
                 return null;
             }
             catch (ArgumentNullException ex)
@@ -283,6 +369,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// get Trash Notes
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <returns>true or false</returns>
         public List<NoteModel> GetTrashNotes(int userId)
         {
             try
@@ -292,6 +383,7 @@ namespace FundooNotes.Repository.Repository
                 {
                     return noteData;
                 }
+
                 return null;
             }
             catch (ArgumentNullException ex)
@@ -300,6 +392,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// get Archive Notes
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <returns>true or false</returns>
         public List<NoteModel> GetArchiveNotes(int userId)
         {
             try
@@ -309,6 +406,7 @@ namespace FundooNotes.Repository.Repository
                 {
                     return noteData;
                 }
+
                 return null;
             }
             catch (ArgumentNullException ex)
@@ -317,6 +415,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// get Reminder Notes
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <returns>true or false</returns>
         public List<NoteModel> GetReminderNotes(int userId)
         {
             try
@@ -326,6 +429,7 @@ namespace FundooNotes.Repository.Repository
                 {
                     return noteData;
                 }
+
                 return null;
             }
             catch (ArgumentNullException ex)
@@ -334,6 +438,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Deleting all notes in trash
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <returns>true or false</returns>
         public bool EmptyTrash(int userId)
         {
             try
@@ -344,6 +453,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.BulkDelete(noteData);
                     return true;
                 }
+
                 return false;
             }
             catch (ArgumentNullException ex)
@@ -352,6 +462,12 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Adding Image to note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <param name="image">Image path</param>
+        /// <returns>true or false</returns>
         public bool AddImage(int noteId, IFormFile image)
         {
             try
@@ -359,7 +475,7 @@ namespace FundooNotes.Repository.Repository
                 var noteData = this.userContext.Note.Find(noteId);
                 if (noteData != null)
                 {
-                    Account account = new Account(configuration["CloudinaryAccount:CloudName"],configuration["CloudinaryAccount:ApiKey"],configuration["CloudinaryAccount:ApiSecret"]);
+                    Account account = new Account(this.configuration["CloudinaryAccount:CloudName"], this.configuration["CloudinaryAccount:ApiKey"], this.configuration["CloudinaryAccount:ApiSecret"]);
                     Cloudinary cloudinary = new Cloudinary(account);
                     ImageUploadParams uploadParams = new ImageUploadParams()
                     {
@@ -370,6 +486,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (ArgumentNullException ex)
@@ -378,6 +495,11 @@ namespace FundooNotes.Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Remove Image for Note
+        /// </summary>
+        /// <param name="noteId">Note Id</param>
+        /// <returns>true or false</returns>
         public bool RemoveImage(int noteId)
         {
             try
@@ -389,6 +511,7 @@ namespace FundooNotes.Repository.Repository
                     this.userContext.SaveChanges();
                     return true;
                 }
+
                 return false;
             }
             catch (Exception ex)

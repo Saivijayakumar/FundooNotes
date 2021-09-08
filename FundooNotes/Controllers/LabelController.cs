@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="CollaboratorController.cs" company="Bridgelabz">
+// <copyright file="LabelController.cs" company="Bridgelabz">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -12,39 +12,39 @@ namespace FundooNotes.Controllers
     using System.Collections.Generic;
 
     /// <summary>
-    /// Lable controller class
+    /// label controller class
     /// </summary>
-    public class LableController : ControllerBase
+    public class LabelController : ControllerBase
     {
         /// <summary>
-        /// object for ILableManger
+        /// object for ILabelManger
         /// </summary>
-        private ILableManger lableManger;
+        private ILabelManger labelManger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LableController" /> class
+        /// Initializes a new instance of the <see cref="LabelController" /> class
         /// </summary>
-        /// <param name="lableManger"></param>
-        public LableController(ILableManger lableManger)
+        /// <param name="labelManger">object name</param>
+        public LabelController(ILabelManger labelManger)
         {
-            this.lableManger = lableManger;
+            this.labelManger = labelManger;
         }
 
         /// <summary>
-        /// Add lable to user
+        /// Add label to user
         /// </summary>
-        /// <param name="lable">lable info</param>
+        /// <param name="label">label info</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/Add Lable")]
-        public IActionResult AddLable([FromBody] LableModel lable)
+        [Route("api/Add label")]
+        public IActionResult AddLabel([FromBody] LabelModel label)
         {
             try
             {
-                string result = this.lableManger.AddLable(lable);
-                if (result == "Lable Added Successfull")
+                string result = this.labelManger.AddLabel(label);
+                if (result == "label Added Successfull")
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Add Lable Method",Data = result });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Add label Method",Data = result });
                 }
                 else
                 {
@@ -58,20 +58,20 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// Add lable to note
+        /// Add label to note
         /// </summary>
-        /// <param name="lable">lable info</param>
+        /// <param name="label">label info</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/Add Lable To Note")]
-        public IActionResult AddLableInNote([FromBody] LableModel lable)
+        [Route("api/Add Label To Note")]
+        public IActionResult AddLabelInNote([FromBody] LabelModel label)
         {
             try
             {
-                string result = this.lableManger.AddLableInNote(lable);
-                if (result == "Lable Added To Note Successfull")
+                string result = this.labelManger.AddLabelInNote(label);
+                if (result == "label Added To Note Successfull")
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Add Lable Method", Data = result });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Add label Method", Data = result });
                 }
                 else
                 {
@@ -85,20 +85,20 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// remove lable in note
+        /// remove label in note
         /// </summary>
-        /// <param name="lableId">lable id</param>
+        /// <param name="labelId">label id</param>
         /// <returns>IAction Result</returns>
         [HttpDelete]
-        [Route("api/Remove Lable In Note")]
-        public IActionResult removeLableInNote(int lableId)
+        [Route("api/Remove Label In Note")]
+        public IActionResult RemoveLabelInNote(int labelId)
         {
             try
             {
-                string result = this.lableManger.removeLableInNote(lableId);
-                if (result == "Lable Removed Successfull")
+                string result = this.labelManger.RemoveLabelInNote(labelId);
+                if (result == "label Removed Successfull")
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Remove Lable Method", Data = result });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Remove label Method", Data = result });
                 }
                 else
                 {
@@ -112,20 +112,20 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// delete lable by lable name and user id
+        /// delete label by label name and user id
         /// </summary>
-        /// <param name="deleteData">delete lable</param>
+        /// <param name="deleteData">delete label</param>
         /// <returns>IAction Result</returns>
         [HttpDelete]
-        [Route("api/Delete Lable")]
-        public IActionResult DeleteLable([FromBody] helperLableModel deleteData)
+        [Route("api/Delete Label")]
+        public IActionResult DeleteLabel([FromBody] HelperLabelModel deleteData)
         {
             try
             {
-                string result = this.lableManger.DeleteLable(deleteData);
-                if (result == "Lable Deleted Successfull")
+                string result = this.labelManger.DeleteLabel(deleteData);
+                if (result == "label Deleted Successfull")
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Delete Lable Method", Data = result });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Delete label Method", Data = result });
                 }
                 else
                 {
@@ -139,20 +139,20 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// rename lable
+        /// rename label
         /// </summary>
-        /// <param name="updateLable">update data</param>
+        /// <param name="updatelabel">update data</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
-        [Route("api/Rename Lable")]
-        public IActionResult RenameLable([FromBody] helperLableModel updateLable)
+        [Route("api/Rename Label")]
+        public IActionResult RenameLabel([FromBody] HelperLabelModel updateLabel)
         {
             try
             {
-                string result = this.lableManger.RenameLable(updateLable);
-                if (result == "Lable Name Updated Successfull")
+                string result = this.labelManger.RenameLabel(updateLabel);
+                if (result == "label Name Updated Successfull")
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Rename Lable Method", Data = result });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Rename label Method", Data = result });
                 }
                 else
                 {
@@ -166,24 +166,24 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// get all lables 
+        /// get all labels 
         /// </summary>
         /// <param name="userId">user id</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/Get All Lables")]
-        public IActionResult GetAllLables(int userId)
+        [Route("api/Get All Labels")]
+        public IActionResult GetAllLabels(int userId)
         {
             try
             {
-                List<LableModel> result = this.lableManger.GetAllLables(userId);
+                List<LabelModel> result = this.labelManger.GetAllLabels(userId);
                 if (result.Count > 0)
                 {
-                    return this.Ok(new ResponseModel<List<LableModel>>() { Status = true, Message = "Get Lable Method", Data = result });
+                    return this.Ok(new ResponseModel<List<LabelModel>>() { Status = true, Message = "Get label Method", Data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "No lables Present at given UserId" });
+                    return this.BadRequest(new { Status = false, Result = "No labels Present at given UserId" });
                 }
             }
             catch (Exception ex)
@@ -193,24 +193,24 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// get only note lables
+        /// get only note labels
         /// </summary>
         /// <param name="noteId">note id</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/Get Note Lables")]
-        public IActionResult GetNoteLables(int noteId)
+        [Route("api/Get Note Labels")]
+        public IActionResult GetNoteLabels(int noteId)
         {
             try
             {
-                List<LableModel> result = this.lableManger.GetNoteLables(noteId);
+                List<LabelModel> result = this.labelManger.GetNoteLabels(noteId);
                 if (result.Count > 0)
                 {
-                    return this.Ok(new ResponseModel<List<LableModel>>() { Status = true, Message = "Get Note Lable Method", Data = result });
+                    return this.Ok(new ResponseModel<List<LabelModel>>() { Status = true, Message = "Get Note label Method", Data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "No lables Present at given NoteId" });
+                    return this.BadRequest(new { Status = false, Result = "No labels Present at given NoteId" });
                 }
             }
             catch (Exception ex)
@@ -220,24 +220,24 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// get lables by user
+        /// get labels by user
         /// </summary>
-        /// <param name="lableData">lable data</param>
+        /// <param name="labelData">label data</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/Get Lables")]
-        public IActionResult GetLables([FromBody] helperLableModel lableData)
+        [Route("api/Get Labels")]
+        public IActionResult GetLabels([FromBody] HelperLabelModel labelData)
         {
             try
             {
-                List<NoteModel> result = this.lableManger.GetLables(lableData);
+                List<NoteModel> result = this.labelManger.GetLabels(labelData);
                 if (result.Count > 0)
                 {
-                    return this.Ok(new ResponseModel<List<NoteModel>>() { Status = true, Message = "Get Lables Method", Data = result });
+                    return this.Ok(new ResponseModel<List<NoteModel>>() { Status = true, Message = "Get labels Method", Data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "No lables Present at given NoteId" });
+                    return this.BadRequest(new { Status = false, Result = "No labels Present at given NoteId" });
                 }
             }
             catch (Exception ex)

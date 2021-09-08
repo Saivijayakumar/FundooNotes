@@ -70,26 +70,26 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Lable",
+                name: "Label",
                 columns: table => new
                 {
-                    lableId = table.Column<int>(nullable: false)
+                    LabelId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    lableName = table.Column<string>(nullable: false),
+                    LabelName = table.Column<string>(nullable: false),
                     NoteId = table.Column<int>(nullable: true),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Lable", x => x.lableId);
+                    table.PrimaryKey("PK_Label", x => x.LabelId);
                     table.ForeignKey(
-                        name: "FK_Lable_Note_NoteId",
+                        name: "FK_Label_Note_NoteId",
                         column: x => x.NoteId,
                         principalTable: "Note",
                         principalColumn: "NoteId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Lable_Users_UserId",
+                        name: "FK_Label_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -102,13 +102,13 @@ namespace Repository.Migrations
                 column: "NoteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lable_NoteId",
-                table: "Lable",
+                name: "IX_Label_NoteId",
+                table: "Label",
                 column: "NoteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lable_UserId",
-                table: "Lable",
+                name: "IX_Label_UserId",
+                table: "Label",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -123,7 +123,7 @@ namespace Repository.Migrations
                 name: "Collaborator");
 
             migrationBuilder.DropTable(
-                name: "Lable");
+                name: "Label");
 
             migrationBuilder.DropTable(
                 name: "Note");

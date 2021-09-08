@@ -21,6 +21,7 @@ namespace FundooNotes
     using Microsoft.Extensions.Hosting;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+    using System;
     using System.Text;
 
     public class Startup
@@ -34,6 +35,10 @@ namespace FundooNotes
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(2);  
+            });
             services.AddMvc();
             services.AddDbContextPool<UserContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("UserDbconnection")));
 
@@ -46,8 +51,8 @@ namespace FundooNotes
             services.AddTransient<ICollaboratorRepository, CollaboratorRepository>();
             services.AddTransient<ICollaboratorManger, CollaboratorManger>();
 
-            services.AddTransient<ILableRepository, LableRepository>();
-            services.AddTransient<ILableManger, LableManger>();
+            services.AddTransient<ILabelRepository, LabelRepository>();
+            services.AddTransient<ILabelManger, LabelManger>();
 
             services.AddSwaggerGen(c =>
             {
@@ -113,11 +118,9 @@ namespace FundooNotes
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
-
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

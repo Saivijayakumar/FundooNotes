@@ -38,6 +38,6 @@ namespace FundooNotes.Repository.Context
         /// <summary>
         /// Gets or sets a value indicating  the  values in Lable table
         /// </summary>
-        public DbSet<LableModel> Lable { get; set; }
+        public DbSet<LabelModel> Label { get; set; }
     }
 }
