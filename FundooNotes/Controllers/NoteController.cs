@@ -116,15 +116,15 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Help to add reminder
         /// </summary>
-        /// <param name="updatedData">It contain note Id and new data</param>
+        /// <param name="updatedData">It contain note Id and new reminder</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/AddReminder")]
-        public IActionResult AddReminder(NoteUpdateModel updatedData)
+        public IActionResult AddReminder([FromBody]NoteModel updateReminder)
         {
             try
             {
-                bool result = this.noteManger.AddReminder(updatedData);
+                bool result = this.noteManger.AddReminder(updateReminder);
                 if (result == true)
                 {
                     return this.Ok(new { Status = true, Result = "Remind added Successfull " });
@@ -174,18 +174,18 @@ namespace FundooNotes.Controllers
         /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/color")]
-        public IActionResult ChangeColor(NoteUpdateModel color)
+        public IActionResult ChangeColor([FromBody]NoteModel UpdateColor)
         {
             try
             {
-                bool result = this.noteManger.ChangeColor(color);
+                bool result = this.noteManger.ChangeColor(UpdateColor);
                 if (result == true)
                 {
-                    return this.Ok(new { Status = true, Result = "Color changed Successfull For note ID " + color.noteId });
+                    return this.Ok(new { Status = true, Result = "Color changed Successfull For note ID " + UpdateColor.NoteId });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "Color changed Unsuccessfull For note ID " + color.noteId });
+                    return this.BadRequest(new { Status = false, Result = "Color changed Unsuccessfull For note ID " + UpdateColor.NoteId });
                 }
             }
             catch (Exception ex)
@@ -305,22 +305,22 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Updating Note 
         /// </summary>
-        /// <param name="updateNoteModel">Updated Values</param>
+        /// <param name="updateNoteModel">note id , title and description</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/Update")]
-        public IActionResult UpdateNote(updateNoteModel updateNoteModel)
+        public IActionResult UpdateNote([FromBody]NoteModel updateNoteModel)
         {
             try
             {
                 bool result = this.noteManger.UpdateNote(updateNoteModel);
                 if (result == true)
                 {
-                    return this.Ok(new { Status = true, Result = "Data Updated Successfull For note ID " + updateNoteModel.noteId });
+                    return this.Ok(new { Status = true, Result = "Data Updated Successfull For note ID " + updateNoteModel.NoteId });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "Data Updated Unsuccessfull For note ID " + updateNoteModel.noteId });
+                    return this.BadRequest(new { Status = false, Result = "Data Updated Unsuccessfull For note ID " + updateNoteModel.NoteId });
                 }
             }
             catch (Exception ex)

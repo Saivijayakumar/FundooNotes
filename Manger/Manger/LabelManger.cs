@@ -1,14 +1,14 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="UserController.cs" company="Bridgelabz">
+// <copyright file="LabelManger.cs" company="Bridgelabz">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace FundooNotes.Manger.Manger
 {
-    using FundooNotes.Manger.Interface;
-    using FundooNotes.Repository.Interface;
     using System;
     using System.Collections.Generic;
+    using FundooNotes.Manger.Interface;
+    using FundooNotes.Repository.Interface;
 
     /// <summary>
     /// labelManger class
@@ -16,14 +16,14 @@ namespace FundooNotes.Manger.Manger
     public class LabelManger : ILabelManger
     {
         /// <summary>
-        /// IlabelRepository object Initialize
+        /// ILabelRepository object Initialize
         /// </summary>
         private readonly ILabelRepository labelRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="labelController" /> class
+        /// Initializes a new instance of the <see cref="LabelManger" /> class
         /// </summary>
-        /// <param name="repository">object name</param>
+        /// <param name="labelRepository">object name</param>
         public LabelManger(ILabelRepository labelRepository)
         {
             this.labelRepository = labelRepository;
@@ -38,9 +38,9 @@ namespace FundooNotes.Manger.Manger
         {
             try
             {
-                return labelRepository.AddLabel(label);
+                return this.labelRepository.AddLabel(label);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -55,7 +55,7 @@ namespace FundooNotes.Manger.Manger
         {
             try
             {
-                return labelRepository.AddLabelInNote(label);
+                return this.labelRepository.AddLabelInNote(label);
             }
             catch (Exception ex)
             {
@@ -68,11 +68,11 @@ namespace FundooNotes.Manger.Manger
         /// </summary>
         /// <param name="deleteData">delete label</param>
         /// <returns>result as string</returns>
-        public string DeleteLabel(HelperLabelModel deleteData)
+        public string DeleteLabel(LabelModel deleteData)
         {
             try
             {
-                return labelRepository.DeleteLabel(deleteData);
+                return this.labelRepository.DeleteLabel(deleteData);
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace FundooNotes.Manger.Manger
         {
             try
             {
-                return labelRepository.RemoveLabelInNote(labelId);
+                return this.labelRepository.RemoveLabelInNote(labelId);
             }
             catch (Exception ex)
             {
@@ -102,11 +102,11 @@ namespace FundooNotes.Manger.Manger
         /// </summary>
         /// <param name="updatelabel">update data</param>
         /// <returns>result as string</returns>
-        public string RenameLabel(HelperLabelModel updateLabel)
+        public string RenameLabel(LabelModel updateLabel)
         {
             try
             {
-                return labelRepository.RenameLabel(updateLabel);
+                return this.labelRepository.RenameLabel(updateLabel);
             }
             catch (Exception ex)
             {
@@ -123,7 +123,7 @@ namespace FundooNotes.Manger.Manger
         {
             try
             {
-                return labelRepository.GetAllLabels(userId);
+                return this.labelRepository.GetAllLabels(userId);
             }
             catch (Exception ex)
             {
@@ -140,7 +140,7 @@ namespace FundooNotes.Manger.Manger
         {
             try
             {
-                return labelRepository.GetNoteLabels(noteId);
+                return this.labelRepository.GetNoteLabels(noteId);
             }
             catch (Exception ex)
             {
@@ -153,11 +153,11 @@ namespace FundooNotes.Manger.Manger
         /// </summary>
         /// <param name="labelData">label data</param>
         /// <returns>list of notes</returns>
-        public List<NoteModel> GetLabels(HelperLabelModel labelData)
+        public List<NoteModel> GetLabels(LabelModel labelData)
         {
             try
             {
-                return labelRepository.GetLabels(labelData);
+                return this.labelRepository.GetLabels(labelData);
             }
             catch (Exception ex)
             {

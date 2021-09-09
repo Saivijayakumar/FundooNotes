@@ -40,14 +40,14 @@ namespace FundooNotes.Manger.Interface
         /// </summary>
         /// <param name="deleteData">delete label</param>
         /// <returns>result as string</returns>
-        string DeleteLabel(HelperLabelModel deleteData);
+        string DeleteLabel(LabelModel deleteData);
 
         /// <summary>
         /// rename label
         /// </summary>
         /// <param name="updateLabel">update data</param>
         /// <returns>result as string</returns>
-        string RenameLabel(HelperLabelModel updateLabel);
+        string RenameLabel(LabelModel updateLabel);
 
         /// <summary>
         /// get all labels 
@@ -68,6 +68,6 @@ namespace FundooNotes.Manger.Interface
         /// </summary>
         /// <param name="labelData">label data</param>
         /// <returns>list of notes</returns>
-        List<NoteModel> GetLabels(HelperLabelModel labelData);
+        List<NoteModel> GetLabels(LabelModel labelData);
     }
 }

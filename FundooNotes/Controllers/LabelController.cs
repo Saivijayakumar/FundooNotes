@@ -114,11 +114,11 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// delete label by label name and user id
         /// </summary>
-        /// <param name="deleteData">delete label</param>
+        /// <param name="deleteData">label name and user id</param>
         /// <returns>IAction Result</returns>
         [HttpDelete]
         [Route("api/Delete Label")]
-        public IActionResult DeleteLabel([FromBody] HelperLabelModel deleteData)
+        public IActionResult DeleteLabel([FromBody] LabelModel deleteData)
         {
             try
             {
@@ -141,11 +141,11 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// rename label
         /// </summary>
-        /// <param name="updatelabel">update data</param>
+        /// <param name="updatelabel">update lable name as lable name ,user id and label Id</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/Rename Label")]
-        public IActionResult RenameLabel([FromBody] HelperLabelModel updateLabel)
+        public IActionResult RenameLabel([FromBody] LabelModel updateLabel)
         {
             try
             {
@@ -222,11 +222,11 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// get labels by user
         /// </summary>
-        /// <param name="labelData">label data</param>
+        /// <param name="labelData">label name and user id</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
         [Route("api/Get Labels")]
-        public IActionResult GetLabels([FromBody] HelperLabelModel labelData)
+        public IActionResult GetLabels([FromBody] LabelModel labelData)
         {
             try
             {

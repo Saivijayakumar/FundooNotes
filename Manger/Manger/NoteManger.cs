@@ -11,6 +11,9 @@ namespace FundooNotes.Manger.Manger
     using FundooNotes.Repository.Interface;
     using Microsoft.AspNetCore.Http;
 
+    /// <summary>
+    /// NoteManger class
+    /// </summary>
     public class NoteManger : INoteManger
     {
         /// <summary>
@@ -19,7 +22,7 @@ namespace FundooNotes.Manger.Manger
         private readonly INoteRepository repository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LableController" /> class
+        /// Initializes a new instance of the <see cref="NoteManger" /> class
         /// </summary>
         /// <param name="repository">object name</param>
         public NoteManger(INoteRepository repository)
@@ -81,13 +84,13 @@ namespace FundooNotes.Manger.Manger
         /// <summary>
         /// Help to add reminder
         /// </summary>
-        /// <param name="updatedData">It contain note Id and new data</param>
+        /// <param name="updateReminder">It contain note Id and new data</param>
         /// <returns>true or false</returns>
-        public bool AddReminder(NoteUpdateModel updatedData)
+        public bool AddReminder(NoteModel updateReminder)
         {
             try
             {
-                return this.repository.AddReminder(updatedData);
+                return this.repository.AddReminder(updateReminder);
             }
             catch (Exception ex)
             {
@@ -115,13 +118,13 @@ namespace FundooNotes.Manger.Manger
         /// <summary>
         /// Change color
         /// </summary>
-        /// <param name="color">Getting NoteID and Color</param>
+        /// <param name="UpdateColor">Getting NoteID and Color</param>
         /// <returns>true or false</returns>
-        public bool ChangeColor(NoteUpdateModel color)
+        public bool ChangeColor(NoteModel updateColor)
         {
             try
             {
-                return this.repository.ChangeColor(color);
+                return this.repository.ChangeColor(updateColor);
             }
             catch (Exception ex)
             {
@@ -202,7 +205,7 @@ namespace FundooNotes.Manger.Manger
         /// </summary>
         /// <param name="updateNoteModel">Updated Values</param>
         /// <returns>IAction Result</returns>
-        public bool UpdateNote(updateNoteModel updateNoteModel)
+        public bool UpdateNote(NoteModel updateNoteModel)
         {
             try
             {
@@ -326,7 +329,7 @@ namespace FundooNotes.Manger.Manger
         {
             try
             {
-                return this.repository.AddImage(noteId,image);
+                return this.repository.AddImage(noteId, image);
             }
             catch (Exception ex)
             {

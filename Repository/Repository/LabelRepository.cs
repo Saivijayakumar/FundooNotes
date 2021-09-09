@@ -114,7 +114,7 @@ namespace FundooNotes.Repository.Repository
         /// </summary>
         /// <param name="deleteData">user id and label name</param>
         /// <returns>output message as string</returns>
-        public string DeleteLabel(HelperLabelModel deleteData)
+        public string DeleteLabel(LabelModel deleteData)
         {
             try
             {
@@ -139,15 +139,16 @@ namespace FundooNotes.Repository.Repository
         /// </summary>
         /// <param name="updatelabel">getting values for Rename the label</param>
         /// <returns>output message as string</returns>
-        public string RenameLabel(HelperLabelModel updatelabel)
+        public string RenameLabel(LabelModel updateData)
         {
             try
             {
-                if (updatelabel.LabelName != updatelabel.UpdateLabelName)
+                var oldLableData = this.userContext.Label.Find(updateData.LabelId);
+                if (oldLableData.LabelName != updateData.LabelName)
                 {
                     string result = "label Name Updated UnSuccessfull";
-                    var newlabelOccurrence = this.userContext.Label.Where(x => x.LabelName == updatelabel.UpdateLabelName && x.UserId == updatelabel.UserId && x.NoteId == null).SingleOrDefault();
-                    var labelList = this.userContext.Label.Where(x => x.LabelName == updatelabel.LabelName && x.UserId == updatelabel.UserId).ToList();
+                    var newlabelOccurrence = this.userContext.Label.Where(x => x.LabelName == updateData.LabelName && x.UserId == updateData.UserId && x.NoteId == null).SingleOrDefault();
+                    var labelList = this.userContext.Label.Where(x => x.LabelName == oldLableData.LabelName && x.UserId == updateData.UserId).ToList();
                     if (labelList.Count > 0)
                     {
                         result = "label Name Updated Successfull";
@@ -155,12 +156,12 @@ namespace FundooNotes.Repository.Repository
                         {
                             this.userContext.Label.Remove(newlabelOccurrence);
                             this.userContext.SaveChanges();
-                            Console.WriteLine($"Merge the '{updatelabel.LabelName}' label with the '{updatelabel.UpdateLabelName}' label? All notes labeled with '{updatelabel.LabelName}' will be replaced with '{updatelabel.UpdateLabelName}', and the '{updatelabel.LabelName}' label will be deleted.");
+                            Console.WriteLine($"Merge the '{oldLableData.LabelName}' label with the '{updateData.LabelName}' label? All notes labeled with '{oldLableData.LabelName}' will be replaced with '{updateData.LabelName}', and the '{oldLableData.LabelName}' label will be deleted.");
                         }
 
                         foreach (var i in labelList)
                         {
-                            i.LabelName = updatelabel.UpdateLabelName;
+                            i.LabelName = updateData.LabelName;
                         }
 
                         this.userContext.SaveChanges();
@@ -228,7 +229,7 @@ namespace FundooNotes.Repository.Repository
         /// </summary>
         /// <param name="labelData">receive only user id and label name</param>
         /// <returns>list of labels</returns>
-        public List<NoteModel> GetLabels(HelperLabelModel labelData)
+        public List<NoteModel> GetLabels(LabelModel labelData)
         {
             try
             {

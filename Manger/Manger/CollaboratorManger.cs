@@ -6,8 +6,8 @@
 namespace FundooNotes.Manger.Manger
 {
     using System;
-    using FundooNotes.Manger.Interface;
     using System.Collections.Generic;
+    using FundooNotes.Manger.Interface;
     using FundooNotes.Repository.Interface;
 
     /// <summary>
@@ -21,7 +21,7 @@ namespace FundooNotes.Manger.Manger
         private readonly ICollaboratorRepository repository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LableController" /> class
+        /// Initializes a new instance of the <see cref="CollaboratorManger" /> class
         /// </summary>
         /// <param name="repository">object name</param>
         public CollaboratorManger(ICollaboratorRepository repository)
@@ -66,7 +66,7 @@ namespace FundooNotes.Manger.Manger
         /// <summary>
         /// Remove Collaborator
         /// </summary>
-        /// <param name="collaborator">collaborator ID</param>
+        /// <param name="collaboratorId">collaborator ID</param>
         /// <returns>Output string</returns>
         public string RemoveCollaborator(int collaboratorId)
         {

@@ -122,14 +122,14 @@ namespace FundooNotes.Repository.Repository
         /// </summary>
         /// <param name="updatedData">It contain note Id and new data</param>
         /// <returns>true or false</returns>
-        public bool AddReminder(NoteUpdateModel updatedData)
+        public bool AddReminder(NoteModel updateReminder)
         {
             try
             {
-                var noteData = this.userContext.Note.Where(d => d.NoteId == updatedData.noteId).FirstOrDefault();
+                var noteData = this.userContext.Note.Where(d => d.NoteId == updateReminder.NoteId).FirstOrDefault();
                 if (noteData != null)
                 {
-                    noteData.RemindMe = updatedData.newData;
+                    noteData.RemindMe = updateReminder.RemindMe;
                     this.userContext.SaveChanges();
                     return true;
                 }
@@ -172,14 +172,14 @@ namespace FundooNotes.Repository.Repository
         /// </summary>
         /// <param name="color">Getting NoteID and Color</param>
         /// <returns>true or false</returns>
-        public bool ChangeColor(NoteUpdateModel color)
+        public bool ChangeColor(NoteModel UpdateColor)
         {
             try
             {
-                var noteData = this.userContext.Note.Find(color.noteId);
+                var noteData = this.userContext.Note.Find(UpdateColor.NoteId);
                 if (noteData != null)
                 {
-                    noteData.Color = color.newData;
+                    noteData.Color = UpdateColor.Color;
                     this.userContext.SaveChanges();
                     return true;
                 }
@@ -300,15 +300,15 @@ namespace FundooNotes.Repository.Repository
         /// </summary>
         /// <param name="updateNoteModel">Updated Values</param>
         /// <returns>IAction Result</returns>
-        public bool UpdateNote(updateNoteModel updateNoteModel)
+        public bool UpdateNote(NoteModel updateNoteModel)
         {
             try
             {
-                var noteData = this.userContext.Note.Find(updateNoteModel.noteId);
+                var noteData = this.userContext.Note.Find(updateNoteModel.NoteId);
                 if (noteData != null)
                 {
-                    noteData.Title = updateNoteModel.title;                    
-                    noteData.Description = updateNoteModel.description;
+                    noteData.Title = updateNoteModel.Title;                    
+                    noteData.Description = updateNoteModel.Description;
                     this.userContext.SaveChanges();
                     return true;
                 }

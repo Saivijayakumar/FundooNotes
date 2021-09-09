@@ -39,7 +39,7 @@ namespace FundooNotes.Repository.Interface
         /// </summary>
         /// <param name="updatedData">It contain note Id and new data</param>
         /// <returns>true or false</returns>
-        bool AddReminder(NoteUpdateModel updatedData);
+        bool AddReminder(NoteModel updateReminder);
 
         /// <summary>
         /// Remove Reminder for Note
@@ -53,7 +53,7 @@ namespace FundooNotes.Repository.Interface
         /// </summary>
         /// <param name="color">Getting NoteID and Color</param>
         /// <returns>true or false</returns>
-        bool ChangeColor(NoteUpdateModel color);
+        bool ChangeColor(NoteModel UpdateColor);
 
         /// <summary>
         /// Trash The Note
@@ -88,7 +88,7 @@ namespace FundooNotes.Repository.Interface
         /// </summary>
         /// <param name="updateNoteModel">Updated Values</param>
         /// <returns>IAction Result</returns>
-        bool UpdateNote(updateNoteModel updateNoteModel);
+        bool UpdateNote(NoteModel updateNoteModel);
 
         /// <summary>
         /// Delete permanently
