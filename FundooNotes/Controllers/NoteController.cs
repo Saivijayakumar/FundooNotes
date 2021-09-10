@@ -116,7 +116,7 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Help to add reminder
         /// </summary>
-        /// <param name="updatedData">It contain note Id and new reminder</param>
+        /// <param name="updateReminder">It contain note Id and new reminder</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/AddReminder")]
@@ -170,22 +170,22 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Change color
         /// </summary>
-        /// <param name="color">Getting NoteID and Color</param>
+        /// <param name="updateColor">Getting NoteID and Color</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/color")]
-        public IActionResult ChangeColor([FromBody]NoteModel UpdateColor)
+        public IActionResult ChangeColor([FromBody]NoteModel updateColor)
         {
             try
             {
-                bool result = this.noteManger.ChangeColor(UpdateColor);
+                bool result = this.noteManger.ChangeColor(updateColor);
                 if (result == true)
                 {
-                    return this.Ok(new { Status = true, Result = "Color changed Successfull For note ID " + UpdateColor.NoteId });
+                    return this.Ok(new { Status = true, Result = "Color changed Successfull For note ID " + updateColor.NoteId });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Result = "Color changed Unsuccessfull For note ID " + UpdateColor.NoteId });
+                    return this.BadRequest(new { Status = false, Result = "Color changed Unsuccessfull For note ID " + updateColor.NoteId });
                 }
             }
             catch (Exception ex)
@@ -499,11 +499,11 @@ namespace FundooNotes.Controllers
         /// <returns>IAction Result</returns>
         [HttpPost]
         [Route("api/Add Image")]
-        public IActionResult AddImage(int noteId ,IFormFile image)
+        public IActionResult AddImage(int noteId, IFormFile image)
         {
             try
             {
-                bool result = this.noteManger.AddImage(noteId,image);
+                bool result = this.noteManger.AddImage(noteId, image);
                 if (result == true)
                 {
                     return this.Ok(new { Status = true, Message = "Image is added Successfull" });

@@ -170,16 +170,16 @@ namespace FundooNotes.Repository.Repository
         /// <summary>
         /// Change color
         /// </summary>
-        /// <param name="color">Getting NoteID and Color</param>
+        /// <param name="updateColor">Getting NoteID and Color</param>
         /// <returns>true or false</returns>
-        public bool ChangeColor(NoteModel UpdateColor)
+        public bool ChangeColor(NoteModel updateColor)
         {
             try
             {
-                var noteData = this.userContext.Note.Find(UpdateColor.NoteId);
+                var noteData = this.userContext.Note.Find(updateColor.NoteId);
                 if (noteData != null)
                 {
-                    noteData.Color = UpdateColor.Color;
+                    noteData.Color = updateColor.Color;
                     this.userContext.SaveChanges();
                     return true;
                 }

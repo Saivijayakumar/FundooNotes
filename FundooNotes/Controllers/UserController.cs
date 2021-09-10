@@ -49,14 +49,14 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                string SessionFirstName = "";
-                string SessionEmail = "";
+                string sessionFirstName = string.Empty;
+                string sessionEmail = string.Empty;
                 bool result = this.manager.Register(userData);
                 if (result == true)
                 {
                     this.logger.LogInformation($" A New Register '{userData.Email}' is Successfull Added ");
-                    HttpContext.Session.SetString(SessionFirstName, userData.FirstName);
-                    HttpContext.Session.SetString(SessionEmail, userData.Email);
+                    HttpContext.Session.SetString(sessionFirstName, userData.FirstName);
+                    HttpContext.Session.SetString(sessionEmail, userData.Email);
                     return this.Ok(new { Status = true, Message = "New User Add Successfull your email is : " + userData.Email });
                 }
                 else
@@ -88,9 +88,9 @@ namespace FundooNotes.Controllers
                 {
                     ConnectionMultiplexer connectionMultiplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
                     IDatabase database = connectionMultiplexer.GetDatabase();
-                    string FirstName = database.StringGet("FirstName");
-                    string LastName = database.StringGet("LastName");
-                    int UserId = Convert.ToInt32(database.StringGet("UserId"));
+                    string firstName = database.StringGet("FirstName");
+                    string lastName = database.StringGet("LastName");
+                    int userId = Convert.ToInt32(database.StringGet("UserId"));
 
                     this.logger.LogInformation($"{userData.Email} login successfull");
                     string tokenString = this.manager.GenerateToken(userData.Email);

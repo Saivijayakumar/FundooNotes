@@ -42,13 +42,13 @@ namespace FundooNotes
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating  the  pin
+        /// Gets or sets a value indicating whether the Pin is active.
         /// </summary>
         [DefaultValue(false)]
         public bool Pin { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating  the  remindme
+        /// Gets or sets a value indicating  the  remind me
         /// </summary>
         public string RemindMe { get; set; }
 
@@ -63,13 +63,13 @@ namespace FundooNotes
         public string Image { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating  the  Archive
+        /// Gets or sets a value indicating whether the Archive is active.
         /// </summary>
         [DefaultValue(false)]
         public bool Archieve { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating  the  trash
+        /// Gets or sets a value indicating whether the Trash is active.
         /// </summary>
         [DefaultValue(false)]
         public bool Trash { get; set; }

@@ -100,7 +100,7 @@ namespace FundooNotes.Manger.Manger
         /// <summary>
         /// rename label
         /// </summary>
-        /// <param name="updatelabel">update data</param>
+        /// <param name="updateLabel">update data</param>
         /// <returns>result as string</returns>
         public string RenameLabel(LabelModel updateLabel)
         {

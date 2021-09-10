@@ -1,10 +1,12 @@
 //-----------------------------------------------------------------------
-// <copyright file="UserController.cs" company="Bridgelabz">
+// <copyright file="Startup.cs" company="Bridgelabz">
 //     Company copyright tag.
 // </copyright>
 //-----------------------------------------------------------------------
 namespace FundooNotes
 {
+    using System;
+    using System.Text;
     using FundooNotes.Managers.Interface;
     using FundooNotes.Managers.Manger;
     using FundooNotes.Repository.Context;
@@ -21,18 +23,30 @@ namespace FundooNotes
     using Microsoft.Extensions.Hosting;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
-    using System;
-    using System.Text;
 
+    /// <summary>
+    /// Startup class
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// defining configuration object
+        /// </summary>
         public IConfiguration Configuration { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup" /> class
+        /// </summary>
+        /// <param name="configuration">Initialize configuration</param>
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services">services are added</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDistributedMemoryCache();
@@ -56,7 +70,7 @@ namespace FundooNotes
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "Fundoo Note",Description ="Mange your note" ,Version = "1.0" });
+                c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "Fundoo Note", Description = "Mange your note", Version = "1.0" });
 
                 // To Enable authorization using Swagger (JWT)  
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -97,12 +111,16 @@ namespace FundooNotes
                     ValidateAudience = false,
                     ValidateLifetime = false,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Configuration["SecretKey"])) //Configuration["JwtToken:SecretKey"]  
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Configuration["SecretKey"])) ////Configuration["JwtToken:SecretKey"]  
                 };
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">app request</param>
+        /// <param name="env">env request</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -112,7 +130,7 @@ namespace FundooNotes
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                //// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

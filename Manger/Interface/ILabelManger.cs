@@ -13,7 +13,6 @@ namespace FundooNotes.Manger.Interface
     /// </summary>
     public interface ILabelManger
     {
-
         /// <summary>
         /// Add label to user
         /// </summary>

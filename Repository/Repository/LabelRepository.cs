@@ -234,10 +234,10 @@ namespace FundooNotes.Repository.Repository
             try
             {
                 var labeledNotes = (from n in this.userContext.Note
-                                               join l in this.userContext.Label
-                                               on n.UserId equals l.UserId
-                                               where l.LabelName == labelData.LabelName && l.UserId == labelData.UserId && l.NoteId != null
-                                               select n).ToList();
+                                    join l in this.userContext.Label
+                                    on n.NoteId equals l.NoteId
+                                    where l.LabelName == labelData.LabelName && l.UserId == labelData.UserId
+                                    select n).ToList();
                 if (labeledNotes.Count > 0)
                 {
                     return labeledNotes;

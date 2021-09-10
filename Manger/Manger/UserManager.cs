@@ -5,10 +5,13 @@
 //-----------------------------------------------------------------------
 namespace FundooNotes.Managers.Manger
 {
+    using System;
     using FundooNotes.Managers.Interface;
     using FundooNotes.Repository.Interface;
-    using System;
 
+    /// <summary>
+    /// UserManager class
+    /// </summary>
     public class UserManager : IUserManger
     {
         /// <summary>
@@ -36,7 +39,7 @@ namespace FundooNotes.Managers.Manger
             {
                 return this.repository.Register(userData);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -62,13 +65,13 @@ namespace FundooNotes.Managers.Manger
         /// <summary>
         /// Generate Token
         /// </summary>
-        /// <param name="Email">Login mail</param>
+        /// <param name="email">Login mail</param>
         /// <returns>JWT token</returns>
-        public string GenerateToken(string Email)
+        public string GenerateToken(string email)
         {
             try
             {
-                return this.repository.GenerateToken(Email);
+                return this.repository.GenerateToken(email);
             }
             catch (Exception ex)
             {

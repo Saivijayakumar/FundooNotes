@@ -18,15 +18,18 @@ namespace FundooNotes
         /// </summary>
         [Key]
         public int collaboratorId { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating  the  note id
         /// </summary>
         [ForeignKey("NoteModel")]
         public int NoteId { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating  the  reference of note model
         /// </summary>
         public virtual NoteModel NoteModel { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating  the  collaborator Email
         /// </summary>

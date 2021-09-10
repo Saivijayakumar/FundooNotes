@@ -6,8 +6,8 @@
 
 namespace FundooNotes.Manger.Interface
 {
-    using Microsoft.AspNetCore.Http;
     using System.Collections.Generic;
+    using Microsoft.AspNetCore.Http;
 
     /// <summary>
     /// interface class
@@ -38,7 +38,7 @@ namespace FundooNotes.Manger.Interface
         /// <summary>
         /// Help to add reminder
         /// </summary>
-        /// <param name="updatedData">It contain note Id and new data</param>
+        /// <param name="updateReminder">It contain note Id and new data</param>
         /// <returns>true or false</returns>
         bool AddReminder(NoteModel updateReminder);
 
@@ -52,9 +52,9 @@ namespace FundooNotes.Manger.Interface
         /// <summary>
         /// Change color
         /// </summary>
-        /// <param name="color">Getting NoteID and Color</param>
+        /// <param name="updateColor">Getting NoteID and Color</param>
         /// <returns>true or false</returns>
-        bool ChangeColor(NoteModel UpdateColor);
+        bool ChangeColor(NoteModel updateColor);
 
         /// <summary>
         /// Trash The Note

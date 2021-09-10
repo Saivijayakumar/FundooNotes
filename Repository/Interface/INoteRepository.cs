@@ -51,9 +51,9 @@ namespace FundooNotes.Repository.Interface
         /// <summary>
         /// Change color
         /// </summary>
-        /// <param name="color">Getting NoteID and Color</param>
+        /// <param name="updateColor">Getting NoteID and Color</param>
         /// <returns>true or false</returns>
-        bool ChangeColor(NoteModel UpdateColor);
+        bool ChangeColor(NoteModel updateColor);
 
         /// <summary>
         /// Trash The Note

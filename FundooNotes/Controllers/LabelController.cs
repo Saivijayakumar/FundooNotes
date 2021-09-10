@@ -6,10 +6,10 @@
 
 namespace FundooNotes.Controllers
 {
-    using FundooNotes.Manger.Interface;
-    using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
+    using FundooNotes.Manger.Interface;
+    using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// label controller class
@@ -44,7 +44,7 @@ namespace FundooNotes.Controllers
                 string result = this.labelManger.AddLabel(label);
                 if (result == "label Added Successfull")
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Add label Method",Data = result });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Add label Method", Data = result });
                 }
                 else
                 {
@@ -141,7 +141,7 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// rename label
         /// </summary>
-        /// <param name="updatelabel">update lable name as lable name ,user id and label Id</param>
+        /// <param name="updateLabel">update label name as label name ,user id and label Id</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
         [Route("api/Rename Label")]

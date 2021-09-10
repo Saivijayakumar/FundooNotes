@@ -27,9 +27,9 @@ namespace FundooNotes.Repository.Interface
         /// <summary>
         /// Generate Token
         /// </summary>
-        /// <param name="Email">Login mail</param>
+        /// <param name="email">Login mail</param>
         /// <returns>JWT token</returns>
-        string GenerateToken(string Email);
+        string GenerateToken(string email);
 
         /// <summary>
         /// we will send mail to 

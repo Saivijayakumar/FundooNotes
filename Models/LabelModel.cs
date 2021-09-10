@@ -46,6 +46,5 @@ namespace FundooNotes
         /// Gets or sets a value indicating  the  reference to register
         /// </summary>
         public virtual RegisterModel RegisterModel { get; set; }
-
     }
 }

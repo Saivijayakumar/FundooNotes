@@ -118,7 +118,7 @@ namespace FundooNotes.Manger.Manger
         /// <summary>
         /// Change color
         /// </summary>
-        /// <param name="UpdateColor">Getting NoteID and Color</param>
+        /// <param name="updateColor">Getting NoteID and Color</param>
         /// <returns>true or false</returns>
         public bool ChangeColor(NoteModel updateColor)
         {
