@@ -9,11 +9,13 @@ namespace FundooNotes.Controllers
     using System;
     using System.Collections.Generic;
     using FundooNotes.Manger.Interface;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// label controller class
     /// </summary>
+    [Authorize]
     public class LabelController : ControllerBase
     {
         /// <summary>
@@ -36,7 +38,7 @@ namespace FundooNotes.Controllers
         /// <param name="label">label info</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/Add label")]
+        [Route("api/Label")]
         public IActionResult AddLabel([FromBody] LabelModel label)
         {
             try
@@ -63,7 +65,7 @@ namespace FundooNotes.Controllers
         /// <param name="label">label info</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/Add Label To Note")]
+        [Route("api/Label To Note")]
         public IActionResult AddLabelInNote([FromBody] LabelModel label)
         {
             try
@@ -90,7 +92,7 @@ namespace FundooNotes.Controllers
         /// <param name="labelId">label id</param>
         /// <returns>IAction Result</returns>
         [HttpDelete]
-        [Route("api/Remove Label In Note")]
+        [Route("api/Label In Note")]
         public IActionResult RemoveLabelInNote(int labelId)
         {
             try
@@ -117,7 +119,7 @@ namespace FundooNotes.Controllers
         /// <param name="deleteData">label name and user id</param>
         /// <returns>IAction Result</returns>
         [HttpDelete]
-        [Route("api/Delete Label")]
+        [Route("api/Label")]
         public IActionResult DeleteLabel([FromBody] LabelModel deleteData)
         {
             try
@@ -144,7 +146,7 @@ namespace FundooNotes.Controllers
         /// <param name="updateLabel">update label name as label name ,user id and label Id</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
-        [Route("api/Rename Label")]
+        [Route("api/Label")]
         public IActionResult RenameLabel([FromBody] LabelModel updateLabel)
         {
             try
@@ -225,7 +227,7 @@ namespace FundooNotes.Controllers
         /// <param name="labelData">label name and user id</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/Get Labels")]
+        [Route("api/Get Notes of Label")]
         public IActionResult GetLabels([FromBody] LabelModel labelData)
         {
             try

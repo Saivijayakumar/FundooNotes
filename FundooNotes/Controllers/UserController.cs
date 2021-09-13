@@ -44,7 +44,7 @@ namespace FundooNotes.Controllers
         /// <param name="userData">User Data</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/register")]
+        [Route("api/Register")]
         public IActionResult Register([FromBody]RegisterModel userData)
         {
             try

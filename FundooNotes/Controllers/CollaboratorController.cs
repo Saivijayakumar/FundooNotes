@@ -9,11 +9,13 @@ namespace FundooNotes.Controllers
     using System;
     using System.Collections.Generic;
     using FundooNotes.Manger.Interface;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Collaborator Controller class
     /// </summary>
+    [Authorize]
     public class CollaboratorController : ControllerBase
     {
         /// <summary>
@@ -36,7 +38,7 @@ namespace FundooNotes.Controllers
         /// <param name="collaborator">Total data of collaborator</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/Add Collaborator")]
+        [Route("api/Collaborator")]
         public IActionResult AddCollaborator([FromBody] CollaboratorModel collaborator)
         {
             try
@@ -63,7 +65,7 @@ namespace FundooNotes.Controllers
         /// <param name="collaboratorId">collaborator ID</param>
         /// <returns>IAction Result</returns>
         [HttpDelete]
-        [Route("api/Remove Collaborator")]
+        [Route("api/Collaborator")]
         public IActionResult RemoveCollaborator(int collaboratorId)
         {
             try

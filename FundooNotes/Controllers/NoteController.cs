@@ -38,7 +38,7 @@ namespace FundooNotes.Controllers
         /// <param name="noteData">Total data of note</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/CreateNote")]
+        [Route("api/Note")]
         public IActionResult CreateNote([FromBody] NoteModel noteData)
         {
             try
@@ -254,7 +254,7 @@ namespace FundooNotes.Controllers
         /// <param name="noteId">Note Id</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
-        [Route("api/Un Archieve")]
+        [Route("api/UnArchieve")]
         public IActionResult UnArchieve(int noteId)
         {
             try
@@ -335,7 +335,7 @@ namespace FundooNotes.Controllers
         /// <param name="noteId">Note Id</param>
         /// <returns>IAction Result</returns>
         [HttpDelete]
-        [Route("api/Delete permanently")]
+        [Route("api/permanently")]
         public IActionResult Deletepermanently(int noteId)
         {
             try
@@ -362,7 +362,7 @@ namespace FundooNotes.Controllers
         /// <param name="userId">User Id</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/GetNotes")]
+        [Route("api/Get Notes")]
         public IActionResult GetNotes(int userId)
         {
             try
@@ -389,7 +389,7 @@ namespace FundooNotes.Controllers
         /// <param name="userId">User Id</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/GetTrashNotes")]
+        [Route("api/Get Trash Notes")]
         public IActionResult GetTrashNotes(int userId)
         {
             try
@@ -470,7 +470,7 @@ namespace FundooNotes.Controllers
         /// <param name="userId">User Id</param>
         /// <returns>IAction Result</returns>
         [HttpDelete]
-        [Route("api/Empty Trash")]
+        [Route("api/Trash")]
         public IActionResult EmptyTrash(int userId)
         {
             try
@@ -498,7 +498,7 @@ namespace FundooNotes.Controllers
         /// <param name="image">Image path</param>
         /// <returns>IAction Result</returns>
         [HttpPost]
-        [Route("api/Add Image")]
+        [Route("api/Image")]
         public IActionResult AddImage(int noteId, IFormFile image)
         {
             try
@@ -525,7 +525,7 @@ namespace FundooNotes.Controllers
         /// <param name="noteId">Note Id</param>
         /// <returns>IAction Result</returns>
         [HttpPut]
-        [Route("api/Remove Image")]
+        [Route("api/Image")]
         public IActionResult RemoveImage(int noteId)
         {
             try
