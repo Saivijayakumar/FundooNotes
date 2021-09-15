@@ -68,6 +68,13 @@ namespace FundooNotes
             services.AddTransient<ILabelRepository, LabelRepository>();
             services.AddTransient<ILabelManger, LabelManger>();
 
+            services.AddCors(options => options.AddPolicy("AllowAllHeaders", builder =>
+             {
+                 builder.AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader();
+             }));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "Fundoo Note", Description = "Mange your note", Version = "1.0" });
@@ -134,6 +141,7 @@ namespace FundooNotes
                 app.UseHsts();
             }
 
+            app.UseCors("AllowAllHeaders");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
